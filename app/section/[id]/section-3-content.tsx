@@ -113,6 +113,7 @@ export default function Section3Content() {
         title="DÂN CHỦ XHCN"
         totalItems={allSection3Items.length}
         quiz={activeTab === "dimensions" ? "3a" : "3b"}
+        rightActions={<ExportButton sectionId="3" compact />}
       />
 
       <CorkBoard id="section-3-board">
@@ -182,10 +183,6 @@ export default function Section3Content() {
           </div>
         </motion.div>
 
-        {/* Export */}
-        <div className="flex justify-center mt-4 pb-4">
-          <ExportButton targetId="section-3-board" filename="section-3-dan-chu-xhcn" />
-        </div>
       </CorkBoard>
     </QuizBoard>
   );

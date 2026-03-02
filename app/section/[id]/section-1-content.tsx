@@ -928,7 +928,12 @@ function EvolutionImageChainThreadOverlay({ containerSelector = ".section1v2-evo
 export default function Section1Content() {
   return (
     <main className="home-board min-h-screen pb-16">
-      <SectionNav sectionId="1" title="PHẦN 1 · DÂN CHỦ" showScore={false} />
+      <SectionNav
+        sectionId="1"
+        title="PHẦN 1 · DÂN CHỦ"
+        showScore={false}
+        rightActions={<ExportButton sectionId="1" compact />}
+      />
 
       <CorkBoard id="section-1-board" className="section1v2-board">
         <motion.section {...fadeUp} className="section1v2-hero-wrap mb-8">
@@ -940,13 +945,13 @@ export default function Section1Content() {
             <div className="section1v2-polaroid-body">
               <Image
                 src="https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/title_01_o3uorf.png"
-                alt="Placeholder minh họa biểu tượng dân chủ"
+                alt="Minh họa biểu tượng dân chủ"
                 fill
                 className="section1v2-polaroid-img"
                 sizes="(max-width: 768px) 80vw, 260px"
               />
             </div>
-            <figcaption>placeholder · dân chủ</figcaption>
+            <figcaption>dân chủ</figcaption>
           </figure>
         </motion.section>
 
@@ -1143,10 +1148,6 @@ export default function Section1Content() {
             <EvolutionImageChainThreadOverlay />
           </div>
         </motion.section>
-
-        <div className="flex justify-center mt-4 pb-4">
-          <ExportButton targetId="section-1-board" filename="section-1-dan-chu-va-su-phat-trien-v2" />
-        </div>
       </CorkBoard>
     </main>
   );

@@ -37,7 +37,13 @@ export default function Section2Content() {
 
   return (
     <QuizBoard items={section2Items} zones={section2Zones} quiz="2">
-      <SectionNav sectionId="2" title="LỊCH SỬ DÂN CHỦ" totalItems={section2Items.length} quiz="2" />
+      <SectionNav
+        sectionId="2"
+        title="LỊCH SỬ DÂN CHỦ"
+        totalItems={section2Items.length}
+        quiz="2"
+        rightActions={<ExportButton sectionId="2" compact />}
+      />
 
       <CorkBoard id="section-2-board">
         {/* Hero */}
@@ -121,10 +127,6 @@ export default function Section2Content() {
           </div>
         </motion.div>
 
-        {/* Export */}
-        <div className="flex justify-center mt-4 pb-4">
-          <ExportButton targetId="section-2-board" filename="section-2-lich-su-dan-chu" />
-        </div>
       </CorkBoard>
     </QuizBoard>
   );
