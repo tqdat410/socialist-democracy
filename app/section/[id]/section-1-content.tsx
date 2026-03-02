@@ -320,7 +320,7 @@ function readEvolutionImagePinPoint(container: HTMLElement, key: EvolutionImageP
   };
 }
 
-function createThreadPath(from: Point, to: Point, curveDirection: 1 | -1): string {
+function createThreadPath(from: Point, to: Point, curveDirection: 1 | -1, curveStrength = 1): string {
   const deltaX = to.x - from.x;
   const deltaY = to.y - from.y;
   const rawLength = Math.max(1, Math.hypot(deltaX, deltaY));
@@ -334,7 +334,7 @@ function createThreadPath(from: Point, to: Point, curveDirection: 1 | -1): strin
   const length = Math.max(1, Math.hypot(innerDx, innerDy));
   const midX = (start.x + end.x) / 2;
   const midY = (start.y + end.y) / 2;
-  const bend = Math.min(34, Math.max(16, length * 0.075)) * curveDirection;
+  const bend = Math.min(34, Math.max(16, length * 0.075)) * curveDirection * curveStrength;
   const normalX = (-innerDy / length) * bend;
   const normalY = (innerDx / length) * bend;
 
@@ -900,7 +900,7 @@ function EvolutionImageChainThreadOverlay({ containerSelector = ".section1v2-evo
     return [
       createThreadPath(p["evolution-1"], p["evolution-2"], 1),
       createThreadPath(p["evolution-2"], p["evolution-3"], 1),
-      createThreadPath(p["evolution-3"], p["evolution-4"], -1),
+      createThreadPath(p["evolution-3"], p["evolution-4"], -1, 3.0),
       createThreadPath(p["evolution-4"], p["evolution-5"], 1),
       createThreadPath(p["evolution-5"], p["evolution-6"], 1),
     ];
@@ -952,7 +952,7 @@ export default function Section1Content() {
 
         <motion.section {...fadeUp} transition={{ delay: 0.08, duration: 0.45 }} className="mb-8">
           <div className="scrap paper-kraft tape section1v2-section-tag section1v2-rot-n1">
-            <h2>1.1. Quan niệm về dân chủ</h2>
+            <h2>1. Quan niệm về dân chủ</h2>
           </div>
 
           <div className="section1v2-greek-layout mb-4">
@@ -1095,7 +1095,7 @@ export default function Section1Content() {
 
         <motion.section {...fadeUp} transition={{ delay: 0.14, duration: 0.45 }} className="mb-8">
           <div className="scrap paper-kraft tape-red section1v2-section-tag section1v2-rot-p1">
-            <h2>1.2. Sự ra đời và phát triển của dân chủ</h2>
+            <h2>2. Sự ra đời và phát triển của dân chủ</h2>
           </div>
 
           <div className="section1v2-evolution-stack">
@@ -1115,7 +1115,7 @@ export default function Section1Content() {
                         sizes="(max-width: 768px) 86vw, 260px"
                       />
                     </div>
-                    <figcaption>{`${block.orderLabel} · ${block.title}`}</figcaption>
+                    <figcaption>{block.title}</figcaption>
                   </figure>
 
                   <div className="section1v2-evolution-notes-wrap">
