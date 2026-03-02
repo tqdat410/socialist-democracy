@@ -6,6 +6,20 @@ import { useEffect, useMemo, useState } from "react";
 import CorkBoard from "@/components/layout/cork-board";
 import SectionNav from "@/components/layout/section-nav";
 import ExportButton from "@/components/export/export-button";
+import Section1EvolutionNoteDropZone, {
+  type Section1EvolutionNoteDefinition,
+} from "@/components/section1/section1-evolution-note-drop-zone";
+import Section1DropSlot from "@/components/section1/section1-drop-slot";
+import Section1QuizBoard from "@/components/section1/section1-quiz-board";
+import Section1ResetButton from "@/components/section1/section1-reset-button";
+import {
+  section1InteractiveItems,
+  section1InteractiveZones,
+  type Section1EvolutionBlockZoneId,
+  type Section1PieceId,
+  type Section1ZoneId,
+} from "@/lib/section1-interactive-data";
+import { useQuizStore } from "@/stores/quiz-store";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -19,19 +33,7 @@ const greekIllustration = {
   src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421373/hylap_jahgk5.png",
 } as const;
 
-const marxLeninIllustration = {
-  title: "Mác-Lênin",
-  src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/mac_lenin_opxtki.png",
-} as const;
-
-const hoChiMinhIllustration = {
-  title: "Hồ Chí Minh",
-  src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421373/hcm_hligrt.png",
-} as const;
-
 const hcmLeftNote = "dân chủ trước hết là một giá trị nhân loại chung" as const;
-const hcmLeftQuote = "Dân chủ là dân là chủ và dân làm chủ; mọi quyền hạn thuộc về nhân dân." as const;
-const hcmRightNote = "dân chủ là một thể chế chính trị, một chế độ xã hội" as const;
 const hcmRightQuote = "Chế độ ta là chế độ dân chủ, tức là nhân dân là người chủ, mà Chính phủ là người đầy tớ trung thành của nhân dân." as const;
 const hcmFinalNote = "\"Dân chủ là một giá trị xã hội phản ánh những quyền cơ bản của con người; là một hình thức tổ chức nhà nước của giai cấp cầm quyền; có quá trình ra đời, phát triển cùng với lịch sử xã hội nhân loại.\" — Giáo trình CNXHKH 2021, tr.130" as const;
 
@@ -44,17 +46,14 @@ const marxLeninNotes = [
   "(4) Là một phạm trù lịch sử gắn với quá trình ra đời, phát triển của lịch sử xã hội nhân loại",
 ] as const;
 
-type DemocracyEvolutionNote = {
-  text: string;
-  className: string;
-  span: "full" | "half";
-};
-
 type DemocracyEvolutionBlock = {
   orderLabel: string;
   title: string;
   imageSrc: string;
-  notes: ReadonlyArray<DemocracyEvolutionNote>;
+  imagePieceId?: Section1PieceId;
+  imageZoneId?: Section1ZoneId;
+  noteDropZoneId: Section1EvolutionBlockZoneId;
+  notes: ReadonlyArray<Section1EvolutionNoteDefinition>;
 };
 
 const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
@@ -62,19 +61,23 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
     orderLabel: "01",
     title: "Cộng sản nguyên thủy",
     imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421385/csnt_zpbrm6.png",
+    noteDropZoneId: "s1-zone-ev-block-1",
     notes: [
-      { text: "mầm mống của dân chủ", className: "paper-postit-yellow tape", span: "full" },
+      { text: "mầm mống của dân chủ", className: "paper-postit-yellow tape", span: "full", detachablePieceId: "s1-ev-note-1-seed" },
       { text: "Ph. Ăngghen", className: "paper-kraft tape", span: "full" },
-      { text: "dân chủ nguyên thủy", className: "paper-postit-blue tape tape-blue", span: "half" },
-      { text: "dân chủ quân sự", className: "paper-postit-pink tape tape-red", span: "half" },
+      { text: "dân chủ nguyên thủy", className: "paper-postit-blue tape tape-blue", span: "half", detachablePieceId: "s1-ev-note-1-primitive" },
+      { text: "dân chủ quân sự", className: "paper-postit-pink tape tape-red", span: "half", detachablePieceId: "s1-ev-note-1-military" },
     ],
   },
   {
     orderLabel: "02",
     title: "Chiếm hữu nô lệ",
     imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/chnl_xs6xxx.png",
+    imagePieceId: "s1-ev-image-02",
+    imageZoneId: "s1-zone-ev-image-02",
+    noteDropZoneId: "s1-zone-ev-block-2",
     notes: [
-      { text: "dân chủ chủ nô", className: "paper-postit-yellow tape", span: "full" },
+      { text: "dân chủ chủ nô", className: "paper-postit-yellow tape", span: "full", detachablePieceId: "s1-ev-note-2-slave-owner" },
       { text: "nền dân chủ của thiểu số, bảo vệ lợi ích của giai cấp cầm quyền", className: "paper-lined tape", span: "full" },
     ],
   },
@@ -82,41 +85,51 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
     orderLabel: "03",
     title: "Phong kiến",
     imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/pk_i1njbb.png",
+    imagePieceId: "s1-ev-image-03",
+    imageZoneId: "s1-zone-ev-image-03",
+    noteDropZoneId: "s1-zone-ev-block-3",
     notes: [
       { text: "độc tài chuyên chế phong kiến", className: "paper-postit-pink tape tape-red", span: "full" },
-      { text: "quân chủ phong kiến", className: "paper-postit-blue tape tape-blue", span: "full" },
+      { text: "quân chủ phong kiến", className: "paper-postit-blue tape tape-blue", span: "full", detachablePieceId: "s1-ev-note-3-monarchy" },
     ],
   },
   {
     orderLabel: "04",
     title: "Tư bản chủ nghĩa",
     imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/tbcn_rgem7x.png",
+    imagePieceId: "s1-ev-image-04",
+    imageZoneId: "s1-zone-ev-image-04",
+    noteDropZoneId: "s1-zone-ev-block-4",
     notes: [
-      { text: "Cuối XIV - Đầu XV", className: "paper-postit-yellow tape", span: "half" },
+      { text: "Cuối XIV - Đầu XV", className: "paper-postit-yellow tape", span: "half", detachablePieceId: "s1-ev-note-4-late14-early15" },
       { text: "dân chủ tư sản", className: "paper-postit-pink tape tape-red", span: "half" },
-      { text: "dân chủ của thiểu số những người nắm giữ tư liệu sản xuất", className: "paper-lined tape", span: "full" },
+      { text: "dân chủ của thiểu số những người nắm giữ tư liệu sản xuất", className: "paper-lined tape", span: "full", detachablePieceId: "s1-ev-note-4-minority-means" },
     ],
   },
   {
     orderLabel: "05",
     title: "Xã hội chủ nghĩa",
     imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/xhcn_a2x2ci.png",
+    noteDropZoneId: "s1-zone-ev-block-5",
     notes: [
       { text: "Cách mạng Tháng Mười Nga (1917)", className: "paper-kraft tape", span: "full" },
-      { text: "dân chủ vô sản", className: "paper-postit-blue tape tape-blue", span: "half" },
-      { text: "dân chủ XHCN", className: "paper-postit-pink tape tape-red", span: "half" },
-      { text: "quyền lợi cho đại đa số nhân dân", className: "paper-lined tape", span: "full" },
+      { text: "dân chủ vô sản", className: "paper-postit-blue tape tape-blue", span: "half", detachablePieceId: "s1-ev-note-5-proletarian" },
+      { text: "dân chủ XHCN", className: "paper-postit-pink tape tape-red", span: "half", detachablePieceId: "s1-ev-note-5-socialist" },
+      { text: "quyền lợi cho đại đa số nhân dân", className: "paper-lined tape", span: "full", detachablePieceId: "s1-ev-note-5-majority-rights" },
     ],
   },
   {
     orderLabel: "06",
     title: "Xã hội cộng sản chủ nghĩa",
     imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/cscn_elhp11.png",
+    imagePieceId: "s1-ev-image-06",
+    imageZoneId: "s1-zone-ev-image-06",
+    noteDropZoneId: "s1-zone-ev-block-6",
     notes: [
       { text: "tương lai", className: "paper-postit-yellow tape", span: "half" },
-      { text: "không còn giai cấp", className: "paper-postit-blue tape tape-blue", span: "half" },
+      { text: "không còn giai cấp", className: "paper-postit-blue tape tape-blue", span: "half", detachablePieceId: "s1-ev-note-6-classless" },
       { text: "nền dân chủ sẽ tự tiêu vong", className: "paper-postit-pink tape tape-red", span: "full" },
-      { text: "một tập quán trong sinh hoạt xã hội", className: "paper-lined tape", span: "full" },
+      { text: "một tập quán sinh hoạt trong xã hội", className: "paper-lined tape", span: "full", detachablePieceId: "s1-ev-note-6-social-custom" },
     ],
   },
 ];
@@ -926,16 +939,29 @@ function EvolutionImageChainThreadOverlay({ containerSelector = ".section1v2-evo
 }
 
 export default function Section1Content() {
-  return (
-    <main className="home-board min-h-screen pb-16">
-      <SectionNav
-        sectionId="1"
-        title="PHẦN 1 · DÂN CHỦ"
-        showScore={false}
-        rightActions={<ExportButton sectionId="1" compact />}
-      />
+  const droppedItems = useQuizStore((s) => s.droppedItems);
+  const droppedItemIds = useMemo(() => new Set(Object.values(droppedItems)), [droppedItems]);
+  const section1Complete = useMemo(
+    () => section1InteractiveItems.every((item) => droppedItemIds.has(item.id)),
+    [droppedItemIds],
+  );
 
-      <CorkBoard id="section-1-board" className="section1v2-board">
+  return (
+    <Section1QuizBoard items={section1InteractiveItems} zones={section1InteractiveZones} quiz="1">
+      <main className="home-board min-h-screen pb-16">
+        <SectionNav
+          sectionId="1"
+          title="PHẦN 1 · DÂN CHỦ"
+          showScore={false}
+          rightActions={(
+            <div className="flex items-center gap-2">
+              <Section1ResetButton />
+              {section1Complete ? <ExportButton sectionId="1" compact usePushpin /> : null}
+            </div>
+          )}
+        />
+
+        <CorkBoard id="section-1-board" className="section1v2-board">
         <motion.section {...fadeUp} className="section1v2-hero-wrap mb-8">
           <article className="scrap section1v2-title-note tape section1v2-rot-n2">
             <h1 className="section1v2-hero-title">Dân chủ và sự ra đời, phát triển của dân chủ</h1>
@@ -977,10 +1003,7 @@ export default function Section1Content() {
 
             <div className="section1v2-greek-stack">
               <div className="section1v2-greek-top">
-                <article className="scrap section1v2-token-card card-magazine tape-red pushpin section1v2-greek-date section1v2-greek-date-card">
-                  <span className="home-thread-pin-anchor" data-thread-pin="greek-date" aria-hidden />
-                  VII-VI TCN
-                </article>
+                <Section1DropSlot pieceId="s1-qn-greek-date" zoneId="s1-zone-greek-date" />
                 <article className="scrap section1v2-token-card paper-postit-yellow pushpin section1v2-greek-democracy-card">
                   <span className="home-thread-pin-anchor" data-thread-pin="greek-democracy" aria-hidden />
                   Democracy
@@ -988,9 +1011,7 @@ export default function Section1Content() {
               </div>
 
               <div className="section1v2-greek-core">
-                <article className="scrap section1v2-token-card paper-postit-yellow tape section1v2-greek-token-demos">
-                  DEMOS
-                </article>
+                <Section1DropSlot pieceId="s1-qn-greek-demos" zoneId="s1-zone-greek-demos" />
                 <article className="scrap section1v2-token-card paper-postit-blue tape tape-blue section1v2-greek-token-kratos">
                   KRATOS
                 </article>
@@ -1000,12 +1021,8 @@ export default function Section1Content() {
                 <article className="scrap section1v2-token-card paper-lined tape section1v2-greek-meaning-people">
                   Nhân Dân
                 </article>
-                <article className="scrap section1v2-token-card paper-postit-pink tape tape-red section1v2-greek-meaning-rule">
-                  cai trị
-                </article>
-                <article className="scrap section1v2-token-card paper-kraft tape tape-blue section1v2-greek-meaning-power">
-                  quyền lực
-                </article>
+                <Section1DropSlot pieceId="s1-qn-greek-rule" zoneId="s1-zone-greek-rule" />
+                <Section1DropSlot pieceId="s1-qn-greek-power" zoneId="s1-zone-greek-power" />
               </div>
 
               <article className="scrap paper-lined pushpin section1v2-greek-note section1v2-rot-pair-1">
@@ -1023,31 +1040,15 @@ export default function Section1Content() {
                 <blockquote className="section1v2-quote section1v2-marx-quote-main">&quot;{marxLeninQuote}&quot;</blockquote>
               </article>
 
-              {marxLeninNotes.map((note, index) => {
-                return (
-                  <article
-                    key={note}
-                    className={`scrap section1v2-marx-note-card ${marxNoteCardClasses[index]} section1v2-marx-note-${index + 1}`}
-                  >
-                    <p>{note}</p>
-                  </article>
-                );
-              })}
+              <Section1DropSlot pieceId="s1-qn-marx-note-1" zoneId="s1-zone-marx-note-1" />
+              <article className={`scrap section1v2-marx-note-card ${marxNoteCardClasses[1]} section1v2-marx-note-2`}>
+                <p>{marxLeninNotes[1]}</p>
+              </article>
+              <Section1DropSlot pieceId="s1-qn-marx-note-3" zoneId="s1-zone-marx-note-3" />
+              <Section1DropSlot pieceId="s1-qn-marx-note-4" zoneId="s1-zone-marx-note-4" />
             </div>
 
-            <figure className="scrap section1v2-polaroid pushpin section1v2-marx-photo section1v2-rot-image-2">
-              <span className="home-thread-pin-anchor" data-thread-pin="marx-photo" data-image-thread-pin="chain-marx" aria-hidden />
-              <div className="section1v2-polaroid-body">
-                <Image
-                  src={marxLeninIllustration.src}
-                  alt={`Ảnh minh họa ${marxLeninIllustration.title}`}
-                  fill
-                  className="section1v2-polaroid-img"
-                  sizes="(max-width: 768px) 88vw, 250px"
-                />
-              </div>
-              <figcaption>{marxLeninIllustration.title}</figcaption>
-            </figure>
+            <Section1DropSlot pieceId="s1-qn-marx-photo" zoneId="s1-zone-marx-photo" />
             <MarxThreadOverlay />
           </div>
 
@@ -1057,30 +1058,13 @@ export default function Section1Content() {
                 <span className="home-thread-pin-anchor" data-thread-pin="hcm-note-left" aria-hidden />
                 <p>{hcmLeftNote}</p>
               </article>
-              <article className="scrap paper-lined tape section1v2-hcm-quote-card section1v2-hcm-quote-left">
-                <blockquote className="section1v2-quote section1v2-hcm-quote-main">&quot;{hcmLeftQuote}&quot;</blockquote>
-              </article>
+              <Section1DropSlot pieceId="s1-qn-hcm-quote-left" zoneId="s1-zone-hcm-quote-left" />
             </div>
 
-            <figure className="scrap section1v2-polaroid pushpin section1v2-hcm-photo section1v2-rot-image-3">
-              <span className="home-thread-pin-anchor" data-thread-pin="hcm-photo" data-image-thread-pin="chain-hcm" aria-hidden />
-              <div className="section1v2-polaroid-body">
-                <Image
-                  src={hoChiMinhIllustration.src}
-                  alt={`Ảnh minh họa ${hoChiMinhIllustration.title}`}
-                  fill
-                  className="section1v2-polaroid-img"
-                  sizes="(max-width: 768px) 88vw, 250px"
-                />
-              </div>
-              <figcaption>{hoChiMinhIllustration.title}</figcaption>
-            </figure>
+            <Section1DropSlot pieceId="s1-qn-hcm-photo" zoneId="s1-zone-hcm-photo" />
 
             <div className="section1v2-hcm-col section1v2-hcm-col-right">
-              <article className="scrap paper-postit-blue pushpin section1v2-hcm-note-card section1v2-hcm-note-right">
-                <span className="home-thread-pin-anchor" data-thread-pin="hcm-note-right" aria-hidden />
-                <p>{hcmRightNote}</p>
-              </article>
+              <Section1DropSlot pieceId="s1-qn-hcm-note-right" zoneId="s1-zone-hcm-note-right" />
               <article className="scrap paper-lined tape tape-red section1v2-hcm-quote-card section1v2-hcm-quote-right">
                 <blockquote className="section1v2-quote section1v2-hcm-quote-main">&quot;{hcmRightQuote}&quot;</blockquote>
               </article>
@@ -1109,38 +1093,25 @@ export default function Section1Content() {
 
               return (
                 <article key={block.orderLabel} className="section1v2-evolution-block">
-                  <figure className={`scrap section1v2-polaroid pushpin section1v2-evolution-photo section1v2-evolution-photo-${index + 1}`}>
-                    <span className="home-thread-pin-anchor" data-stage-image-thread-pin={imagePin} aria-hidden />
-                    <div className="section1v2-polaroid-body">
-                      <Image
-                        src={block.imageSrc}
-                        alt={`Ảnh minh họa ${block.title}`}
-                        fill
-                        className="section1v2-polaroid-img"
-                        sizes="(max-width: 768px) 86vw, 260px"
-                      />
-                    </div>
-                    <figcaption>{block.title}</figcaption>
-                  </figure>
+                  {block.imagePieceId && block.imageZoneId ? (
+                    <Section1DropSlot pieceId={block.imagePieceId} zoneId={block.imageZoneId} />
+                  ) : (
+                    <figure className={`scrap section1v2-polaroid pushpin section1v2-evolution-photo section1v2-evolution-photo-${index + 1}`}>
+                      <span className="home-thread-pin-anchor" data-stage-image-thread-pin={imagePin} aria-hidden />
+                      <div className="section1v2-polaroid-body">
+                        <Image
+                          src={block.imageSrc}
+                          alt={`Ảnh minh họa ${block.title}`}
+                          fill
+                          className="section1v2-polaroid-img"
+                          sizes="(max-width: 768px) 86vw, 260px"
+                        />
+                      </div>
+                      <figcaption>{block.title}</figcaption>
+                    </figure>
+                  )}
 
-                  <div className="section1v2-evolution-notes-wrap">
-                    <div className="section1v2-evolution-notes-grid">
-                      {block.notes.map((note) => {
-                        const noteSpanClass = note.span === "half"
-                          ? "section1v2-evolution-note-half"
-                          : "section1v2-evolution-note-full";
-
-                        return (
-                          <article
-                            key={`${block.orderLabel}-${note.text}`}
-                            className={`scrap section1v2-evolution-note ${note.className} ${noteSpanClass}`}
-                          >
-                            <p>{note.text}</p>
-                          </article>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <Section1EvolutionNoteDropZone blockZoneId={block.noteDropZoneId} notes={block.notes} />
                 </article>
               );
             })}
@@ -1148,7 +1119,8 @@ export default function Section1Content() {
             <EvolutionImageChainThreadOverlay />
           </div>
         </motion.section>
-      </CorkBoard>
-    </main>
+        </CorkBoard>
+      </main>
+    </Section1QuizBoard>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import CorkBoard from "@/components/layout/cork-board";
 import SectionNav from "@/components/layout/section-nav";
 import QuizBoard from "@/components/quiz/quiz-board";
@@ -15,6 +16,7 @@ import ExportButton from "@/components/export/export-button";
 import { section2Items, section2Zones } from "@/lib/quiz-data";
 import { section2Flashcards } from "@/lib/flashcard-data";
 import { caseStudies } from "@/lib/content-data";
+import { useQuizStore } from "@/stores/quiz-store";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -34,6 +36,12 @@ const timelineEntries: TimelineEntry[] = [
 
 export default function Section2Content() {
   const cs2 = caseStudies.find((c) => c.id === "cs2")!;
+  const droppedItems = useQuizStore((s) => s.droppedItems);
+  const droppedItemIds = useMemo(() => new Set(Object.values(droppedItems)), [droppedItems]);
+  const section2Complete = useMemo(
+    () => section2Items.every((item) => droppedItemIds.has(item.id)),
+    [droppedItemIds],
+  );
 
   return (
     <QuizBoard items={section2Items} zones={section2Zones} quiz="2">
@@ -42,7 +50,7 @@ export default function Section2Content() {
         title="LỊCH SỬ DÂN CHỦ"
         totalItems={section2Items.length}
         quiz="2"
-        rightActions={<ExportButton sectionId="2" compact />}
+        rightActions={section2Complete ? <ExportButton sectionId="2" compact usePushpin /> : null}
       />
 
       <CorkBoard id="section-2-board">

@@ -9,9 +9,10 @@ import {
 interface ExportButtonProps {
   sectionId: SectionId;
   compact?: boolean;
+  usePushpin?: boolean;
 }
 
-export default function ExportButton({ sectionId, compact = false }: ExportButtonProps) {
+export default function ExportButton({ sectionId, compact = false, usePushpin = false }: ExportButtonProps) {
   const [loading, setLoading] = useState(false);
   const asset = SECTION_STATIC_EXPORT_ASSETS[sectionId];
   const disabled = loading || !asset.ready;
@@ -55,7 +56,7 @@ export default function ExportButton({ sectionId, compact = false }: ExportButto
       <button
         onClick={handleDownload}
         disabled={disabled}
-        className="scrap paper-magazine tape"
+        className={`scrap paper-magazine ${usePushpin ? "pushpin" : "tape"}`}
         style={{
           border: "none",
           cursor: disabled ? "not-allowed" : "pointer",

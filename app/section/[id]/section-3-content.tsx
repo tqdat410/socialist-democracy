@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import CorkBoard from "@/components/layout/cork-board";
 import SectionNav from "@/components/layout/section-nav";
@@ -99,7 +99,13 @@ export default function Section3Content() {
   const cs3 = caseStudies.find((c) => c.id === "cs3")!;
   const section3Phase = useQuizStore((s) => s.section3Phase);
   const setSectionPhase = useQuizStore((s) => s.setSectionPhase);
+  const droppedItems = useQuizStore((s) => s.droppedItems);
   const [activeTab, setActiveTab] = useState<"dimensions" | "comparison">(section3Phase);
+  const droppedItemIds = useMemo(() => new Set(Object.values(droppedItems)), [droppedItems]);
+  const section3Complete = useMemo(
+    () => allSection3Items.every((item) => droppedItemIds.has(item.id)),
+    [droppedItemIds],
+  );
 
   function switchTab(tab: "dimensions" | "comparison") {
     setActiveTab(tab);
@@ -113,7 +119,7 @@ export default function Section3Content() {
         title="DÂN CHỦ XHCN"
         totalItems={allSection3Items.length}
         quiz={activeTab === "dimensions" ? "3a" : "3b"}
-        rightActions={<ExportButton sectionId="3" compact />}
+        rightActions={section3Complete ? <ExportButton sectionId="3" compact usePushpin /> : null}
       />
 
       <CorkBoard id="section-3-board">

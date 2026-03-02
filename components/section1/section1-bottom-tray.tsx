@@ -3,10 +3,10 @@
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import { useMemo } from "react";
 import { useQuizStore } from "@/stores/quiz-store";
-import DragCard from "@/components/quiz/drag-card";
+import Section1DragCard from "@/components/section1/section1-drag-card";
 import type { DragItem } from "@/lib/quiz-data";
 
-interface BottomTrayProps {
+interface Section1BottomTrayProps {
   items: DragItem[];
   quiz: string;
 }
@@ -20,13 +20,12 @@ function hashString(input: string): number {
   return hash >>> 0;
 }
 
-export default function BottomTray({ items, quiz }: BottomTrayProps) {
+export default function Section1BottomTray({ items, quiz }: Section1BottomTrayProps) {
   const droppedItems = useQuizStore((s) => s.droppedItems);
   const droppedSignature = Object.values(droppedItems).sort().join("|");
 
-  // Only show items not yet correctly dropped
   const available = items.filter(
-    (item) => item.quiz === quiz && !Object.values(droppedItems).includes(item.id)
+    (item) => item.quiz === quiz && !Object.values(droppedItems).includes(item.id),
   );
 
   const shuffledAvailable = useMemo(() => {
@@ -43,9 +42,9 @@ export default function BottomTray({ items, quiz }: BottomTrayProps) {
     <div className="section-tray-shell fixed bottom-0 left-0 right-0 z-30">
       <div className="w-full px-3 py-2">
         <SortableContext items={shuffledAvailable.map((i) => i.id)} strategy={rectSortingStrategy}>
-          <div className="quiz-bottom-tray-scroll">
+          <div className="section1-bottom-tray-scroll">
             {shuffledAvailable.map((item) => (
-              <DragCard key={item.id} item={item} />
+              <Section1DragCard key={item.id} item={item} />
             ))}
           </div>
         </SortableContext>
