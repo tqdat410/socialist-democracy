@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import CorkBoard from "@/components/layout/cork-board";
 import SectionNav from "@/components/layout/section-nav";
 import ExportButton from "@/components/export/export-button";
+import RibbonFall from "@/components/feedback/ribbon-fall";
 import Section1EvolutionNoteDropZone, {
   type Section1EvolutionNoteDefinition,
 } from "@/components/section1/section1-evolution-note-drop-zone";
@@ -945,9 +946,11 @@ export default function Section1Content() {
     () => section1InteractiveItems.every((item) => droppedItemIds.has(item.id)),
     [droppedItemIds],
   );
+  const ribbonBurstKey = section1Complete ? droppedItemIds.size : 0;
 
   return (
     <Section1QuizBoard items={section1InteractiveItems} zones={section1InteractiveZones} quiz="1">
+      <RibbonFall burstKey={ribbonBurstKey} />
       <main className="home-board min-h-screen pb-16">
         <SectionNav
           sectionId="1"

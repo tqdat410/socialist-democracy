@@ -14,7 +14,7 @@ interface QuizBoardProps {
   children: React.ReactNode; // section layout with DropZone components
 }
 
-export default function QuizBoard({ items, zones: _zones, quiz, children }: QuizBoardProps) {
+export default function QuizBoard({ items, quiz, children }: QuizBoardProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const { recordDrop, isCorrect } = useQuizStore();
 

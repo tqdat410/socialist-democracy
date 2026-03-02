@@ -45,99 +45,67 @@ export const section1Zones: DropZoneConfig[] = [
 
 // ─── Section 2 (quiz '2') ─────────────────────────────────────────────────────
 export const section2Items: DragItem[] = [
-  { id: 's2-1', text: 'Mầm mống DC, bầu thủ lĩnh', answer: 'csnt', section: 'section-2', quiz: '2', cardVariant: 'note-green', thumbnail: true },
-  { id: 's2-2', text: 'DC chủ nô, chỉ thiểu số', answer: 'nole', section: 'section-2', quiz: '2', cardVariant: 'note-pink', thumbnail: true },
-  { id: 's2-3', text: 'Chuyên chế PK, DC bị xóa', answer: 'phongkien', section: 'section-2', quiz: '2', cardVariant: 'torn', thumbnail: true },
-  { id: 's2-4', text: 'TK XIV-XV, bước tiến, thiểu số', answer: 'tuban', section: 'section-2', quiz: '2', cardVariant: 'lined', thumbnail: true },
-  { id: 's2-5', text: 'Quyền lực đại đa số nhân dân', answer: 'xhcn', section: 'section-2', quiz: '2', cardVariant: 'magazine' },
-  { id: 's2-6', text: 'DC = tập quán, NN tự tiêu vong', answer: 'cscn', section: 'section-2', quiz: '2', cardVariant: 'note-blue', thumbnail: true },
-  { id: 's2-7', text: '1871', answer: 'milestone-1871', section: 'section-2', quiz: '2', cardVariant: 'stamp' },
-  { id: 's2-8', text: '1917', answer: 'milestone-1917', section: 'section-2', quiz: '2', cardVariant: 'stamp' },
+  { id: "s2-01", text: "Giai đoạn 1: đấu tranh giành chính quyền dân chủ", answer: "s2-zone-gd1", section: "section-2", quiz: "2", cardVariant: "note-green" },
+  { id: "s2-02", text: "Giai đoạn 2: dùng dân chủ để tổ chức Nhà nước XHCN", answer: "s2-zone-gd2", section: "section-2", quiz: "2", cardVariant: "note-blue" },
+  { id: "s2-03", text: "Công xã Pari (1871): phôi thai nền dân chủ XHCN", answer: "s2-zone-1871", section: "section-2", quiz: "2", cardVariant: "stamp" },
+  { id: "s2-04", text: "Cách mạng Tháng Mười Nga (1917): xác lập nền dân chủ XHCN", answer: "s2-zone-1917", section: "section-2", quiz: "2", cardVariant: "stamp" },
+  { id: "s2-05", text: "Phát triển từ thấp đến cao, kế thừa chọn lọc các giá trị dân chủ trước đó", answer: "s2-zone-phattrien", section: "section-2", quiz: "2", cardVariant: "lined" },
+  { id: "s2-06", text: "Mọi quyền lực thuộc về nhân dân, dân là chủ và dân làm chủ", answer: "s2-zone-dinhnghia", section: "section-2", quiz: "2", cardVariant: "magazine" },
+  { id: "s2-07", text: "Chính trị: Đảng Cộng sản lãnh đạo vì lợi ích của toàn thể nhân dân", answer: "s2-zone-chinhtri", section: "section-2", quiz: "2", cardVariant: "note-pink" },
+  { id: "s2-08", text: "Kinh tế: công hữu TLSX chủ yếu, phân phối theo lao động", answer: "s2-zone-kinhte", section: "section-2", quiz: "2", cardVariant: "note-green" },
+  { id: "s2-09", text: "Tư tưởng-văn hóa-xã hội: Mác-Lênin chủ đạo, hài hòa lợi ích cá nhân - tập thể - xã hội", answer: "s2-zone-tutuong", section: "section-2", quiz: "2", cardVariant: "torn" },
 ];
 
 export const section2Zones: DropZoneConfig[] = [
-  { id: 'csnt', label: 'Cộng sản nguyên thủy', section: 'section-2', quiz: '2' },
-  { id: 'nole', label: 'Chiếm hữu nô lệ', section: 'section-2', quiz: '2' },
-  { id: 'phongkien', label: 'Phong kiến', section: 'section-2', quiz: '2' },
-  { id: 'tuban', label: 'Tư bản chủ nghĩa', section: 'section-2', quiz: '2' },
-  { id: 'xhcn', label: 'Xã hội chủ nghĩa', section: 'section-2', quiz: '2' },
-  { id: 'cscn', label: 'Cộng sản chủ nghĩa', section: 'section-2', quiz: '2' },
-  { id: 'milestone-1871', label: 'Công xã Paris', section: 'section-2', quiz: '2' },
-  { id: 'milestone-1917', label: 'Cách mạng Tháng Mười', section: 'section-2', quiz: '2' },
+  { id: "s2-zone-gd1", label: "Giai đoạn 1", section: "section-2", quiz: "2" },
+  { id: "s2-zone-gd2", label: "Giai đoạn 2", section: "section-2", quiz: "2" },
+  { id: "s2-zone-1871", label: "Mốc 1871", section: "section-2", quiz: "2" },
+  { id: "s2-zone-1917", label: "Mốc 1917", section: "section-2", quiz: "2" },
+  { id: "s2-zone-phattrien", label: "Lộ trình phát triển", section: "section-2", quiz: "2" },
+  { id: "s2-zone-dinhnghia", label: "Định nghĩa cốt lõi", section: "section-2", quiz: "2" },
+  { id: "s2-zone-chinhtri", label: "Bản chất chính trị", section: "section-2", quiz: "2" },
+  { id: "s2-zone-kinhte", label: "Bản chất kinh tế", section: "section-2", quiz: "2" },
+  { id: "s2-zone-tutuong", label: "Bản chất tư tưởng-văn hóa-xã hội", section: "section-2", quiz: "2" },
 ];
 
-// ─── Section 3a (quiz '3a') ────────────────────────────────────────────────────
-export const section3aItems: DragItem[] = [
-  { id: 's3a-ct1', text: 'Lãnh đạo qua ĐCS', answer: 'chinhtri', section: 'section-3', quiz: '3a', cardVariant: 'note-pink' },
-  { id: 's3a-ct2', text: 'Nhất nguyên chính trị', answer: 'chinhtri', section: 'section-3', quiz: '3a', cardVariant: 'torn' },
-  { id: 's3a-ct3', text: 'Nhân dân = chủ thể QL', answer: 'chinhtri', section: 'section-3', quiz: '3a', cardVariant: 'magazine' },
-  { id: 's3a-kt1', text: 'Công hữu TLSX chủ yếu', answer: 'kinhte', section: 'section-3', quiz: '3a', cardVariant: 'note-green' },
-  { id: 's3a-kt2', text: 'Phân phối theo lao động', answer: 'kinhte', section: 'section-3', quiz: '3a', cardVariant: 'lined' },
-  { id: 's3a-kt3', text: 'Lợi ích NLĐ = động lực', answer: 'kinhte', section: 'section-3', quiz: '3a', cardVariant: 'keyword' },
-  { id: 's3a-tt1', text: 'Mác-Lênin chủ đạo', answer: 'tutuong', section: 'section-3', quiz: '3a', cardVariant: 'note-blue' },
-  { id: 's3a-tt2', text: 'Kế thừa tinh hoa VH', answer: 'tutuong', section: 'section-3', quiz: '3a', cardVariant: 'note' },
-  { id: 's3a-tt3', text: 'Hài hòa cá nhân-TT-XH', answer: 'tutuong', section: 'section-3', quiz: '3a', cardVariant: 'keyword' },
+// ─── Section 3 (quiz '3') ─────────────────────────────────────────────────────
+export const section3Items: DragItem[] = [
+  { id: "s3-01", text: "Giai cấp công nhân lãnh đạo thông qua Đảng Cộng sản, đại diện lợi ích đại đa số", answer: "s3-zone-giaicap-xhcn", section: "section-3", quiz: "3", cardVariant: "magazine" },
+  { id: "s3-02", text: "Giai cấp tư sản nắm quyền, đại diện lợi ích thiểu số sở hữu tư bản", answer: "s3-zone-giaicap-tusan", section: "section-3", quiz: "3", cardVariant: "note-pink" },
+  { id: "s3-03", text: "Nhất nguyên chính trị với vai trò lãnh đạo của Đảng Cộng sản", answer: "s3-zone-coche-xhcn", section: "section-3", quiz: "3", cardVariant: "note-blue" },
+  { id: "s3-04", text: "Đa nguyên đa đảng, cạnh tranh nhưng bản chất giai cấp tư sản không đổi", answer: "s3-zone-coche-tusan", section: "section-3", quiz: "3", cardVariant: "torn" },
+  { id: "s3-05", text: "Công hữu TLSX chủ yếu, đất đai thuộc sở hữu toàn dân", answer: "s3-zone-sohuu-xhcn", section: "section-3", quiz: "3", cardVariant: "note-green" },
+  { id: "s3-06", text: "Tư hữu TLSX, tư bản tư nhân chi phối kinh tế", answer: "s3-zone-sohuu-tusan", section: "section-3", quiz: "3", cardVariant: "note-pink" },
+  { id: "s3-07", text: "Phân phối theo kết quả lao động là chủ yếu", answer: "s3-zone-phanphoi-xhcn", section: "section-3", quiz: "3", cardVariant: "lined" },
+  { id: "s3-08", text: "Phân phối theo tư bản, dễ dẫn tới bất bình đẳng sâu sắc", answer: "s3-zone-phanphoi-tusan", section: "section-3", quiz: "3", cardVariant: "note-blue" },
+  { id: "s3-09", text: "Phạm vi dân chủ hướng tới đại đa số nhân dân lao động", answer: "s3-zone-phamvi-xhcn", section: "section-3", quiz: "3", cardVariant: "note-green" },
+  { id: "s3-10", text: "Dân chủ hình thức, quyền lực thực chất nghiêng về nhóm có vốn", answer: "s3-zone-phamvi-tusan", section: "section-3", quiz: "3", cardVariant: "torn" },
+  { id: "s3-11", text: "Nhà nước pháp quyền XHCN của nhân dân, do nhân dân, vì nhân dân", answer: "s3-zone-nhanuoc-xhcn", section: "section-3", quiz: "3", cardVariant: "note-green" },
+  { id: "s3-12", text: "Nhà nước pháp quyền tư sản bảo vệ trật tự của giai cấp tư sản", answer: "s3-zone-nhanuoc-tusan", section: "section-3", quiz: "3", cardVariant: "note-pink" },
+  { id: "s3-13", text: "Hệ tư tưởng Mác-Lênin giữ vai trò chủ đạo trong xã hội mới", answer: "s3-zone-tutuong-xhcn", section: "section-3", quiz: "3", cardVariant: "magazine" },
+  { id: "s3-14", text: "Đa tư tưởng, chịu ảnh hưởng mạnh của tư tưởng tự do tư sản", answer: "s3-zone-tutuong-tusan", section: "section-3", quiz: "3", cardVariant: "torn" },
 ];
 
-export const section3aZones: DropZoneConfig[] = [
-  { id: 'chinhtri', label: 'Lĩnh vực Chính trị', section: 'section-3', quiz: '3a', column: 'chinhtri' },
-  { id: 'kinhte', label: 'Lĩnh vực Kinh tế', section: 'section-3', quiz: '3a', column: 'kinhte' },
-  { id: 'tutuong', label: 'Lĩnh vực Tư tưởng-VH', section: 'section-3', quiz: '3a', column: 'tutuong' },
-];
-
-// ─── Section 3b (quiz '3b') ────────────────────────────────────────────────────
-export type ComparisonSide = 'xhcn' | 'tusan';
-
-export interface ComparisonItem extends DragItem {
-  side: ComparisonSide;
-  criterion: string;
-}
-
-export const section3bItems: ComparisonItem[] = [
-  // giaicap
-  { id: 's3b-xhcn-gc', text: 'Giai cấp công nhân lãnh đạo', answer: 'giaicap-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'magazine', side: 'xhcn', criterion: 'giaicap' },
-  { id: 's3b-ts-gc', text: 'Giai cấp tư sản lãnh đạo', answer: 'giaicap-tusan', section: 'section-3', quiz: '3b', cardVariant: 'note-pink', side: 'tusan', criterion: 'giaicap' },
-  // coche
-  { id: 's3b-xhcn-cc', text: 'Đảng Cộng sản lãnh đạo', answer: 'coche-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'note-blue', side: 'xhcn', criterion: 'coche' },
-  { id: 's3b-ts-cc', text: 'Đa đảng, tam quyền phân lập', answer: 'coche-tusan', section: 'section-3', quiz: '3b', cardVariant: 'torn', side: 'tusan', criterion: 'coche' },
-  // sohuu
-  { id: 's3b-xhcn-sh', text: 'Công hữu tư liệu sản xuất', answer: 'sohuu-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'note-green', side: 'xhcn', criterion: 'sohuu' },
-  { id: 's3b-ts-sh', text: 'Tư hữu tư liệu sản xuất', answer: 'sohuu-tusan', section: 'section-3', quiz: '3b', cardVariant: 'note-pink', side: 'tusan', criterion: 'sohuu' },
-  // phanphoi
-  { id: 's3b-xhcn-pp', text: 'Phân phối theo lao động', answer: 'phanphoi-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'lined', side: 'xhcn', criterion: 'phanphoi' },
-  { id: 's3b-ts-pp', text: 'Phân phối theo tư bản', answer: 'phanphoi-tusan', section: 'section-3', quiz: '3b', cardVariant: 'note-blue', side: 'tusan', criterion: 'phanphoi' },
-  // phamvi
-  { id: 's3b-xhcn-pv', text: 'Toàn thể nhân dân lao động', answer: 'phamvi-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'magazine', side: 'xhcn', criterion: 'phamvi' },
-  { id: 's3b-ts-pv', text: 'Hình thức, thiểu số hưởng', answer: 'phamvi-tusan', section: 'section-3', quiz: '3b', cardVariant: 'torn', side: 'tusan', criterion: 'phamvi' },
-  // nhanuoc
-  { id: 's3b-xhcn-nn', text: 'Nhà nước của nhân dân', answer: 'nhanuoc-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'note-green', side: 'xhcn', criterion: 'nhanuoc' },
-  { id: 's3b-ts-nn', text: 'Nhà nước của giai cấp tư sản', answer: 'nhanuoc-tusan', section: 'section-3', quiz: '3b', cardVariant: 'note-pink', side: 'tusan', criterion: 'nhanuoc' },
-  // baucu
-  { id: 's3b-xhcn-bc', text: 'Bầu cử thực chất, mọi tầng lớp', answer: 'baucu-xhcn', section: 'section-3', quiz: '3b', cardVariant: 'note-blue', side: 'xhcn', criterion: 'baucu' },
-  { id: 's3b-ts-bc', text: 'Bầu cử hình thức, tiền quyết định', answer: 'baucu-tusan', section: 'section-3', quiz: '3b', cardVariant: 'torn', side: 'tusan', criterion: 'baucu' },
-];
-
-export const section3bZones: DropZoneConfig[] = [
-  { id: 'giaicap-xhcn', label: 'XHCN - Giai cấp', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'giaicap-tusan', label: 'Tư sản - Giai cấp', section: 'section-3', quiz: '3b', column: 'tusan' },
-  { id: 'coche-xhcn', label: 'XHCN - Cơ chế', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'coche-tusan', label: 'Tư sản - Cơ chế', section: 'section-3', quiz: '3b', column: 'tusan' },
-  { id: 'sohuu-xhcn', label: 'XHCN - Sở hữu', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'sohuu-tusan', label: 'Tư sản - Sở hữu', section: 'section-3', quiz: '3b', column: 'tusan' },
-  { id: 'phanphoi-xhcn', label: 'XHCN - Phân phối', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'phanphoi-tusan', label: 'Tư sản - Phân phối', section: 'section-3', quiz: '3b', column: 'tusan' },
-  { id: 'phamvi-xhcn', label: 'XHCN - Phạm vi', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'phamvi-tusan', label: 'Tư sản - Phạm vi', section: 'section-3', quiz: '3b', column: 'tusan' },
-  { id: 'nhanuoc-xhcn', label: 'XHCN - Nhà nước', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'nhanuoc-tusan', label: 'Tư sản - Nhà nước', section: 'section-3', quiz: '3b', column: 'tusan' },
-  { id: 'baucu-xhcn', label: 'XHCN - Bầu cử', section: 'section-3', quiz: '3b', column: 'xhcn' },
-  { id: 'baucu-tusan', label: 'Tư sản - Bầu cử', section: 'section-3', quiz: '3b', column: 'tusan' },
+export const section3Zones: DropZoneConfig[] = [
+  { id: "s3-zone-giaicap-xhcn", label: "XHCN · Giai cấp", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-giaicap-tusan", label: "Tư sản · Giai cấp", section: "section-3", quiz: "3", column: "tusan" },
+  { id: "s3-zone-coche-xhcn", label: "XHCN · Cơ chế", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-coche-tusan", label: "Tư sản · Cơ chế", section: "section-3", quiz: "3", column: "tusan" },
+  { id: "s3-zone-sohuu-xhcn", label: "XHCN · Sở hữu", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-sohuu-tusan", label: "Tư sản · Sở hữu", section: "section-3", quiz: "3", column: "tusan" },
+  { id: "s3-zone-phanphoi-xhcn", label: "XHCN · Phân phối", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-phanphoi-tusan", label: "Tư sản · Phân phối", section: "section-3", quiz: "3", column: "tusan" },
+  { id: "s3-zone-phamvi-xhcn", label: "XHCN · Phạm vi", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-phamvi-tusan", label: "Tư sản · Phạm vi", section: "section-3", quiz: "3", column: "tusan" },
+  { id: "s3-zone-nhanuoc-xhcn", label: "XHCN · Nhà nước", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-nhanuoc-tusan", label: "Tư sản · Nhà nước", section: "section-3", quiz: "3", column: "tusan" },
+  { id: "s3-zone-tutuong-xhcn", label: "XHCN · Hệ tư tưởng", section: "section-3", quiz: "3", column: "xhcn" },
+  { id: "s3-zone-tutuong-tusan", label: "Tư sản · Hệ tư tưởng", section: "section-3", quiz: "3", column: "tusan" },
 ];
 
 // ─── All items combined ────────────────────────────────────────────────────────
 export const allDragItems: DragItem[] = [
   ...section1Items,
   ...section2Items,
-  ...section3aItems,
-  ...section3bItems,
+  ...section3Items,
 ];

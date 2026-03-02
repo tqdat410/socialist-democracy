@@ -31,7 +31,7 @@ export const sectionDescriptions: SectionDescription[] = [
     id: '2',
     title: 'Dân Chủ XHCN',
     subtitle: 'Quá trình & Bản chất',
-    description: 'Hành trình dân chủ qua các hình thái kinh tế-xã hội — từ bầu thủ lĩnh đến Cách mạng Tháng Mười.',
+    description: 'Theo dõi 2.1 quá trình ra đời và 2.2 bản chất dân chủ XHCN trên các phương diện chính trị, kinh tế, tư tưởng-văn hóa-xã hội.',
     icon: '🗺',
     color: '#1565C0',
   },
@@ -39,7 +39,7 @@ export const sectionDescriptions: SectionDescription[] = [
     id: '3',
     title: 'DC XHCN vs Tư Sản',
     subtitle: 'So sánh theo tiêu chí',
-    description: 'Phân tích 3 lĩnh vực dân chủ XHCN và so sánh với dân chủ tư sản qua 7 tiêu chí.',
+    description: 'Bảng so sánh bản chất DC XHCN và DC tư sản theo 7 tiêu chí kèm ví dụ thực tiễn.',
     icon: '⚖',
     color: '#2E7D32',
   },
@@ -124,70 +124,294 @@ export const homePhotoFrames: HomePhotoFrame[] = [
       "Small student group presenting infographic notes in front of a wooden board, collaborative gestures, dynamic yet natural posture, realistic candid photojournalism, warm classroom tones, gentle film grain, no readable signage.",
   },
 ];
-export interface CaseStudy { id: string; section: string; title: string; body: string; source: string; }
-export const caseStudies: CaseStudy[] = [
+
+export interface SectionIllustrationSlot {
+  id: string;
+  section: "2" | "3";
+  block: string;
+  src: string;
+  alt: string;
+  caption: string;
+  placeholderText: string;
+  hasRealAsset: boolean;
+}
+
+export const sectionIllustrationSlots: SectionIllustrationSlot[] = [
   {
-    id: 'cs1',
-    section: 'section-1',
-    title: 'Dân chủ Athen — Nền tảng đầu tiên',
-    body: 'Khoảng 508 TCN, Cleisthenes cải cách Athen: hội đồng 500 người được bầu theo lô, mọi công dân nam tự do đều có quyền phát biểu tại Hội đồng nhân dân (ekklesia). Tuy nhiên phụ nữ, nô lệ và người ngoại quốc bị loại trừ — minh chứng cho tính giai cấp của dân chủ.',
-    source: 'Thucydides, Lịch sử chiến tranh Peloponnese',
+    id: "s2-hero",
+    section: "2",
+    block: "hero",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/xhcn_a2x2ci.png",
+    alt: "Minh họa tổng quan dân chủ xã hội chủ nghĩa",
+    caption: "xã hội chủ nghĩa",
+    placeholderText: "MINH HỌA: QUYỀN LỰC NHÂN DÂN TRONG DÂN CHỦ XHCN",
+    hasRealAsset: true,
   },
   {
-    id: 'cs2',
-    section: 'section-2',
-    title: 'Công xã Paris 1871 — 72 ngày lịch sử',
-    body: 'Từ 18/3 đến 28/5/1871, giai cấp công nhân Paris nắm quyền lực nhà nước lần đầu tiên. Công xã bầu ra hội đồng, trả lương cán bộ bằng lương công nhân, tách nhà thờ khỏi nhà nước, giáo dục miễn phí. Marx gọi đây là "hình thức chính trị cuối cùng được tìm thấy để thực hiện sự giải phóng kinh tế của lao động".',
-    source: 'Marx, Nội chiến ở Pháp, 1871',
+    id: "s2-1871",
+    section: "2",
+    block: "emergence-1871",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772450719/pari_oqblyo.png",
+    alt: "Minh họa Công xã Pari năm 1871",
+    caption: "công xã pari 1871",
+    placeholderText: "MINH HỌA: CÔNG XÃ PARI 1871",
+    hasRealAsset: true,
   },
   {
-    id: 'cs3',
-    section: 'section-3',
-    title: 'Việt Nam — Mô hình DCCN trong thực tiễn',
-    body: 'Hiến pháp 2013 Điều 2: "Nhà nước Cộng hòa XHCN Việt Nam là nhà nước pháp quyền XHCN của Nhân dân, do Nhân dân, vì Nhân dân." Cơ chế "Đảng lãnh đạo, Nhà nước quản lý, Nhân dân làm chủ" thể hiện 3 lĩnh vực DCCN: chính trị (Đảng), kinh tế (phân phối theo lao động), tư tưởng (Mác-Lênin, tư tưởng HCM).',
-    source: 'Hiến pháp Việt Nam 2013',
+    id: "s2-1917",
+    section: "2",
+    block: "emergence-1917",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772450718/cmt10_xa3z2u.png",
+    alt: "Minh họa Cách mạng Tháng Mười Nga năm 1917",
+    caption: "cách mạng tháng mười 1917",
+    placeholderText: "MINH HỌA: CÁCH MẠNG THÁNG MƯỜI NGA 1917",
+    hasRealAsset: true,
+  },
+  {
+    id: "s2-development",
+    section: "2",
+    block: "emergence-development",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772450719/pt_na4b03.png",
+    alt: "Minh họa quá trình phát triển của nền dân chủ xã hội chủ nghĩa",
+    caption: "phát triển",
+    placeholderText: "MINH HỌA: QUÁ TRÌNH PHÁT TRIỂN DÂN CHỦ XHCN",
+    hasRealAsset: true,
+  },
+  {
+    id: "s2-political",
+    section: "2",
+    block: "nature-political",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772450730/ct_l8wbyo.png",
+    alt: "Minh họa bản chất chính trị của dân chủ xã hội chủ nghĩa",
+    caption: "bản chất chính trị",
+    placeholderText: "MINH HỌA: ĐẢNG CỘNG SẢN LÃNH ĐẠO VÌ NHÂN DÂN",
+    hasRealAsset: true,
+  },
+  {
+    id: "s2-economic",
+    section: "2",
+    block: "nature-economic",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772450732/kt_jec9w7.png",
+    alt: "Minh họa bản chất kinh tế của dân chủ xã hội chủ nghĩa",
+    caption: "bản chất kinh tế",
+    placeholderText: "MINH HỌA: CÔNG HỮU TLSX - PHÂN PHỐI THEO LAO ĐỘNG",
+    hasRealAsset: true,
+  },
+  {
+    id: "s2-cultural",
+    section: "2",
+    block: "nature-cultural",
+    src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772450718/tt_c1ucgx.png",
+    alt: "Minh họa bản chất tư tưởng văn hóa xã hội của dân chủ xã hội chủ nghĩa",
+    caption: "tư tưởng - văn hóa - xã hội",
+    placeholderText: "MINH HỌA: MÁC-LÊNIN CHỦ ĐẠO VÀ PHÁT TRIỂN CON NGƯỜI",
+    hasRealAsset: true,
+  },
+  {
+    id: "s3-hero",
+    section: "3",
+    block: "hero",
+    src: "",
+    alt: "Minh họa bảng so sánh dân chủ xã hội chủ nghĩa và dân chủ tư sản",
+    caption: "bảng so sánh",
+    placeholderText: "MINH HỌA: SO SÁNH BẢN CHẤT DC XHCN VÀ DC TƯ SẢN",
+    hasRealAsset: false,
+  },
+  {
+    id: "s3-matrix",
+    section: "3",
+    block: "matrix-context",
+    src: "",
+    alt: "Minh họa đối chiếu hai mô hình dân chủ theo các tiêu chí",
+    caption: "đối chiếu tiêu chí",
+    placeholderText: "MINH HỌA: MA TRẬN TIÊU CHÍ XHCN VS TƯ SẢN",
+    hasRealAsset: false,
+  },
+  {
+    id: "s3-example-1",
+    section: "3",
+    block: "example-vote",
+    src: "",
+    alt: "Minh họa ví dụ quyền bầu cử và tham gia chính trị",
+    caption: "ví dụ 1",
+    placeholderText: "MINH HỌA: QUYỀN BẦU CỬ VÀ THAM GIA CHÍNH TRỊ",
+    hasRealAsset: false,
+  },
+  {
+    id: "s3-example-2",
+    section: "3",
+    block: "example-ownership",
+    src: "",
+    alt: "Minh họa ví dụ sở hữu đất đai và phân phối lợi ích xã hội",
+    caption: "ví dụ 2",
+    placeholderText: "MINH HỌA: SỞ HỮU ĐẤT ĐAI VÀ PHÂN PHỐI LỢI ÍCH",
+    hasRealAsset: false,
+  },
+  {
+    id: "s3-example-3",
+    section: "3",
+    block: "example-labor",
+    src: "",
+    alt: "Minh họa ví dụ quyền lao động và an sinh xã hội",
+    caption: "ví dụ 3",
+    placeholderText: "MINH HỌA: QUYỀN LAO ĐỘNG VÀ AN SINH XÃ HỘI",
+    hasRealAsset: false,
   },
 ];
-// Debate prep data for section 3
-export interface DebateRound { id: number; claim: string; counter: string; hint: string; }
-export const debateRounds: DebateRound[] = [
+
+export function getSectionIllustrationSlot(slotId: string): SectionIllustrationSlot | null {
+  return sectionIllustrationSlots.find((slot) => slot.id === slotId) ?? null;
+}
+
+export interface Section2EmergencePoint {
+  id: string;
+  title: string;
+  detail: string;
+  zoneId: string;
+}
+
+export const section2EmergencePoints: Section2EmergencePoint[] = [
   {
-    id: 1,
-    claim: '"Dân chủ tư sản là dân chủ thực sự vì có bầu cử tự do!"',
-    counter: 'Bầu cử tư sản bị chi phối bởi tiền bạc và truyền thông tập đoàn — chỉ giai cấp tư sản mới thực sự có quyền lực.',
-    hint: 'Nghĩ đến vai trò của tiền trong bầu cử Mỹ',
+    id: "stage-1",
+    title: "Giai đoạn 1",
+    detail: "Giai cấp công nhân đấu tranh giành dân chủ và giành chính quyền từ giai cấp tư sản.",
+    zoneId: "s2-zone-gd1",
   },
   {
-    id: 2,
-    claim: '"Đa đảng mới là dân chủ, một đảng là độc tài!"',
-    counter: 'Số lượng đảng không quyết định chất lượng dân chủ. Đảng đại diện giai cấp công nhân lãnh đạo bảo đảm lợi ích đại đa số hơn đa đảng phục vụ tư bản.',
-    hint: 'Chú ý: đa đảng nhưng đều phục vụ ai?',
+    id: "stage-2",
+    title: "Giai đoạn 2",
+    detail: "Giai cấp công nhân dùng dân chủ để tổ chức Nhà nước XHCN của công nhân và nhân dân lao động.",
+    zoneId: "s2-zone-gd2",
   },
   {
-    id: 3,
-    claim: '"Kinh tế thị trường tư bản tạo ra nhiều tự do hơn!"',
-    counter: 'Tự do kinh tế tư bản chỉ thực sự có với người có tư bản. Công hữu TLSX và phân phối theo lao động tạo ra công bằng thực chất cho người lao động.',
-    hint: 'Tự do với người không có vốn là gì?',
+    id: "milestone-1871",
+    title: "Công xã Pari (1871)",
+    detail: "Phôi thai của nền dân chủ XHCN với mô hình nhà nước kiểu mới của giai cấp công nhân.",
+    zoneId: "s2-zone-1871",
   },
   {
-    id: 4,
-    claim: '"Các nước XHCN đã sụp đổ, chứng tỏ mô hình thất bại!"',
-    counter: 'Sự sụp đổ Liên Xô xuất phát từ sai lầm chủ quan, không phủ nhận tính đúng đắn của lý luận XHCN. Việt Nam, Trung Quốc vẫn phát triển thành công trên nền tảng XHCN.',
-    hint: 'Phân biệt lý luận và thực tiễn cụ thể',
+    id: "milestone-1917",
+    title: "Cách mạng Tháng Mười Nga (1917)",
+    detail: "Đánh dấu nền dân chủ XHCN chính thức được xác lập cùng nhà nước XHCN đầu tiên trên thế giới.",
+    zoneId: "s2-zone-1917",
   },
   {
-    id: 5,
-    claim: '"Nhân quyền ở các nước XHCN bị hạn chế hơn!"',
-    counter: 'DCCN bảo đảm quyền kinh tế-xã hội thiết thực: giáo dục, y tế, việc làm cho đại đa số. Nhân quyền tư sản chỉ trên giấy tờ nếu thiếu điều kiện vật chất thực hiện.',
-    hint: 'Quyền con người gồm cả quyền kinh tế-xã hội',
+    id: "trajectory",
+    title: "Quá trình phát triển",
+    detail: "Dân chủ XHCN phát triển từ thấp đến cao, từ chưa hoàn thiện đến hoàn thiện, có kế thừa chọn lọc.",
+    zoneId: "s2-zone-phattrien",
   },
 ];
-export const comparisonCriteria = [
-  { id: 'giaicap', label: 'Giai cấp lãnh đạo' },
-  { id: 'coche', label: 'Cơ chế chính trị' },
-  { id: 'sohuu', label: 'Sở hữu TLSX' },
-  { id: 'phanphoi', label: 'Phân phối' },
-  { id: 'phamvi', label: 'Phạm vi hưởng quyền' },
-  { id: 'nhanuoc', label: 'Bản chất nhà nước' },
-  { id: 'baucu', label: 'Bầu cử' },
+
+export const section2DefinitionQuote =
+  "\"Dân chủ xã hội chủ nghĩa là nền dân chủ cao hơn về chất, mọi quyền lực thuộc về nhân dân, được thực hiện bằng nhà nước pháp quyền XHCN dưới sự lãnh đạo của Đảng Cộng sản.\"";
+
+export const section2NatureCoreNotes: string[] = [
+  "thủ tiêu tình trạng áp bức giai cấp, dân tộc",
+  "giải phóng con người một cách triệt để, toàn diện",
+  "thực hiện quyền tự do, bình đẳng của con người",
+  "đảm bảo quyền lực thực sự thuộc về nhân dân",
+];
+
+export interface Section2NatureDimension {
+  id: string;
+  title: string;
+  detail?: string;
+  subNotes: string[];
+  zoneId: string;
+  illustrationSlotId: string;
+}
+
+export const section2NatureDimensions: Section2NatureDimension[] = [
+  {
+    id: "chinhtri",
+    title: "Bản chất chính trị",
+    detail:
+      "sự lãnh đạo chính trị của giai cấp công nhân thông qua đảng của nó đối với toàn xã hội, thực hiện quyền lực và lợi ích của toàn thể nhân dân",
+    subNotes: [
+      "Mang bản chất giai cấp công nhân",
+      "Do Đảng Cộng sản lãnh đạo",
+      "Chủ thể quyền lực nhà nước là nhân dân",
+    ],
+    zoneId: "s2-zone-chinhtri",
+    illustrationSlotId: "s2-political",
+  },
+  {
+    id: "kinhte",
+    title: "Bản chất kinh tế",
+    subNotes: [
+      "quyền làm chủ của nhân dân về các tư liệu sản xuất chủ yếu",
+      "Quyền làm chủ trong quá trình sản xuất kinh doanh, quản lý và phân phối",
+      "động lực cơ bản nhất",
+      "công hữu về tư liệu sản xuất",
+      "phân phối lợi ích theo kết quả lao động",
+    ],
+    zoneId: "s2-zone-kinhte",
+    illustrationSlotId: "s2-economic",
+  },
+  {
+    id: "tutuong",
+    title: "Bản chất tư tưởng - văn hóa - xã hội",
+    subNotes: [
+      "hệ tư tưởng Mác–Lênin",
+      "Kế thừa và phát huy tinh hoa văn hóa dân tộc và nhân loại",
+      "Nhân dân được làm chủ, giải phóng con người, phát triển toàn diện",
+      "Kết hợp hài hòa lợi ích",
+    ],
+    zoneId: "s2-zone-tutuong",
+    illustrationSlotId: "s2-cultural",
+  },
+];
+
+export interface Section3ComparisonCriterion {
+  id: string;
+  label: string;
+  xhcnZoneId: string;
+  tusanZoneId: string;
+}
+
+export const section3ComparisonCriteria: Section3ComparisonCriterion[] = [
+  { id: "giaicap", label: "Giai cấp lãnh đạo", xhcnZoneId: "s3-zone-giaicap-xhcn", tusanZoneId: "s3-zone-giaicap-tusan" },
+  { id: "coche", label: "Cơ chế chính trị", xhcnZoneId: "s3-zone-coche-xhcn", tusanZoneId: "s3-zone-coche-tusan" },
+  { id: "sohuu", label: "Sở hữu TLSX", xhcnZoneId: "s3-zone-sohuu-xhcn", tusanZoneId: "s3-zone-sohuu-tusan" },
+  { id: "phanphoi", label: "Phân phối lợi ích", xhcnZoneId: "s3-zone-phanphoi-xhcn", tusanZoneId: "s3-zone-phanphoi-tusan" },
+  { id: "phamvi", label: "Phạm vi dân chủ", xhcnZoneId: "s3-zone-phamvi-xhcn", tusanZoneId: "s3-zone-phamvi-tusan" },
+  { id: "nhanuoc", label: "Bản chất nhà nước", xhcnZoneId: "s3-zone-nhanuoc-xhcn", tusanZoneId: "s3-zone-nhanuoc-tusan" },
+  { id: "tutuong", label: "Hệ tư tưởng", xhcnZoneId: "s3-zone-tutuong-xhcn", tusanZoneId: "s3-zone-tutuong-tusan" },
+];
+
+export interface Section3PracticalExample {
+  id: string;
+  title: string;
+  xhcn: string;
+  tusan: string;
+  conclusion: string;
+  illustrationSlotId: string;
+}
+
+export const section3PracticalExamples: Section3PracticalExample[] = [
+  {
+    id: "example-vote",
+    title: "Ví dụ 1: Quyền bầu cử và tham gia chính trị",
+    xhcn: "Việt Nam bảo đảm quyền bầu cử phổ thông cho công dân; tinh thần tổng tuyển cử 1946 nhấn mạnh mọi công dân đều có quyền bầu cử và ứng cử.",
+    tusan: "Ở một số nước tư bản, quyền bầu cử mở rộng chậm theo lịch sử và vẫn chịu ảnh hưởng lớn của tài chính vận động chính trị.",
+    conclusion: "Khác biệt cốt lõi nằm ở mức độ thực chất của quyền làm chủ chính trị của đại đa số nhân dân.",
+    illustrationSlotId: "s3-example-1",
+  },
+  {
+    id: "example-ownership",
+    title: "Ví dụ 2: Sở hữu đất đai và phân phối lợi ích xã hội",
+    xhcn: "Đất đai và tài nguyên chủ yếu thuộc sở hữu toàn dân do Nhà nước đại diện quản lý; phân phối lợi ích gắn mục tiêu an sinh cho đại đa số.",
+    tusan: "Chế độ tư hữu TLSX dẫn đến lợi ích tập trung vào nhóm nắm giữ tư bản, bất bình đẳng xã hội gia tăng.",
+    conclusion: "Khác biệt thể hiện ở nền tảng sở hữu và định hướng phân phối lợi ích.",
+    illustrationSlotId: "s3-example-2",
+  },
+  {
+    id: "example-labor",
+    title: "Ví dụ 3: Quyền lao động và an sinh xã hội",
+    xhcn: "Nhà nước bảo đảm quyền lao động, BHXH, hỗ trợ thất nghiệp và chính sách an sinh cho người lao động.",
+    tusan: "Quyền lao động và an sinh chịu tác động mạnh của thị trường, tương quan lực lượng chủ - thợ và vận động hành lang.",
+    conclusion: "Khác biệt nằm ở vai trò của Nhà nước trong bảo vệ quyền lợi người lao động.",
+    illustrationSlotId: "s3-example-3",
+  },
 ];

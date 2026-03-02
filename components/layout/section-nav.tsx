@@ -10,6 +10,7 @@ interface SectionNavProps {
   totalItems?: number;
   quiz?: string;
   showScore?: boolean;
+  score?: number;
   rightActions?: ReactNode;
 }
 
@@ -17,13 +18,15 @@ export default function SectionNav({
   title,
   totalItems = 0,
   showScore = true,
+  score,
   rightActions,
 }: SectionNavProps) {
   const droppedItems = useQuizStore((s) => s.droppedItems);
 
-  // Count correct drops that belong to this quiz
-  const score = showScore ? Object.keys(droppedItems).length : 0;
-  const pct = totalItems > 0 ? Math.round((score / totalItems) * 100) : 0;
+  const resolvedScore = showScore
+    ? score ?? Object.keys(droppedItems).length
+    : 0;
+  const pct = totalItems > 0 ? Math.round((resolvedScore / totalItems) * 100) : 0;
 
   return (
     <nav className="section-nav-shell sticky top-0 z-40 flex items-center gap-2 px-2 py-1.5 mb-3">
@@ -41,7 +44,7 @@ export default function SectionNav({
         {showScore && (
           <div className="scrap paper-news text-xs px-3 py-1" style={{ minWidth: 80, textAlign: "center" }}>
             <div className="font-[family-name:var(--font-anton)]" style={{ fontSize: "1.2em" }}>
-              {score}/{totalItems}
+              {resolvedScore}/{totalItems}
             </div>
             <div style={{ fontSize: "0.75em", opacity: 0.7 }}>ĐIỂM SỐ</div>
             <div style={{ marginTop: 4, height: 4, background: "#ddd", borderRadius: 2 }}>
