@@ -1094,7 +1094,7 @@ export default function Section1Content() {
         <ImageChainThreadOverlay />
 
         <motion.section {...fadeUp} transition={{ delay: 0.14, duration: 0.45 }} className="mb-8">
-          <div className="scrap paper-kraft tape-red section1v2-section-tag section1v2-rot-p1">
+          <div className="scrap paper-kraft tape tape-red section1v2-section-tag section1v2-rot-p1">
             <h2>2. Sự ra đời và phát triển của dân chủ</h2>
           </div>
 
