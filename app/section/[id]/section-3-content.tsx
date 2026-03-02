@@ -1,6 +1,5 @@
 "use client";
 
-import Flashcard from "@/components/cards/flashcard";
 import ExportButton from "@/components/export/export-button";
 import BoardPhotoCard from "@/components/layout/board-photo-card";
 import CorkBoard from "@/components/layout/cork-board";
@@ -9,7 +8,6 @@ import Section3ComparisonMatrixBoard from "@/components/section3/section3-compar
 import Section3PracticalExampleLane from "@/components/section3/section3-practical-example-lane";
 import Section3ThreadOverlay from "@/components/section3/section3-thread-overlay";
 import { getSectionIllustrationSlot } from "@/lib/content-data";
-import { section3Flashcards } from "@/lib/flashcard-data";
 
 export default function Section3Content() {
   return (
@@ -24,61 +22,54 @@ export default function Section3Content() {
       <CorkBoard id="section-3-board" className="section3v2-board-shell">
         <Section3ThreadOverlay />
 
-          <section className="section3v2-hero-wrap mb-8">
-            <article className="scrap section3v2-title-note tape section1v2-rot-n2">
-              <h1 className="section3v2-hero-title">Bản chất DC XHCN và DC Tư sản</h1>
-              <p className="section3v2-hero-subtitle">
-                Đối chiếu theo tiêu chí lý luận và kiểm chứng bằng ví dụ thực tiễn
-              </p>
-            </article>
+        <section className="section3v2-hero-wrap mb-8">
+          <article className="scrap section3v2-title-note pushpin section1v2-rot-n2">
+            <span className="home-thread-pin-anchor" data-section3-thread-pin="hero-title" aria-hidden />
+            <h1 className="section3v2-hero-title">Bản chất DC XHCN và DC Tư sản</h1>
+          </article>
 
+          <article className="scrap paper-lined pushpin section3v2-guiding-note section1v2-rot-p1">
+            <span className="home-thread-pin-anchor" data-section3-thread-pin="hero-guiding" aria-hidden />
+            <p>
+              Thông qua những ví dụ thực tiễn, sinh viên hãy chứng minh sự khác nhau về bản chất giữa dân chủ xã hội chủ
+              nghĩa và dân chủ tư sản?
+            </p>
+          </article>
+
+          <div className="section3v2-hero-dual-grid">
             <BoardPhotoCard
-              slot={getSectionIllustrationSlot("s3-hero")}
-              className="section3v2-hero-photo section1v2-rot-p3"
+              slot={getSectionIllustrationSlot("s3-hero-xhcn")}
+              className="section3v2-hero-dual-photo section3v2-hero-dual-photo-left section1v2-rot-image-1"
               pinAttribute="data-section3-thread-pin"
-              pinKey="hero-photo"
-              sizes="(max-width: 768px) 78vw, 260px"
+              pinKey="hero-xhcn"
+              sizes="(max-width: 768px) 78vw, 320px"
             />
-          </section>
-
-          <div>
-            <article className="scrap paper-lined tape section3v2-intro-note section1v2-rot-p1 mb-6">
-              <p>
-                Giáo trình CNXHKH 2021 nhấn mạnh DC XHCN khác về chất so với DC tư sản ở bản chất giai cấp,
-                cơ chế chính trị và bản chất nhà nước, đồng thời khác cả về nền tảng sở hữu, phân phối và hệ tư tưởng.
-              </p>
-            </article>
+            <BoardPhotoCard
+              slot={getSectionIllustrationSlot("s3-hero-ts")}
+              className="section3v2-hero-dual-photo section3v2-hero-dual-photo-right section1v2-rot-image-2"
+              pinAttribute="data-section3-thread-pin"
+              pinKey="hero-ts"
+              sizes="(max-width: 768px) 78vw, 320px"
+            />
           </div>
+        </section>
 
-          <div>
-            <Section3ComparisonMatrixBoard />
-          </div>
+        <div>
+          <Section3ComparisonMatrixBoard />
+        </div>
 
-          <div>
-            <Section3PracticalExampleLane />
-          </div>
+        <div>
+          <Section3PracticalExampleLane />
+        </div>
 
-          <div className="mb-8">
-            <article className="scrap paper-kraft tape-red section3v2-recap-note section1v2-rot-n1">
-              <p>
-                Kết luận: DC XHCN hướng quyền lực thực chất về đại đa số nhân dân lao động; DC tư sản mang hình thức dân chủ
-                nhưng quyền lực và lợi ích thường tập trung vào thiểu số nắm giữ tư bản.
-              </p>
-            </article>
-          </div>
-
-          <div className="mb-6">
-            <div className="scrap paper-kraft pushpin mb-3 inline-block" style={{ padding: "4px 12px" }}>
-              <span style={{ fontFamily: "var(--font-special-elite)", fontSize: "0.8em" }}>
-                ÔN TẬP — NHẤN ĐỂ LẬT THẺ
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-4 justify-center">
-              {section3Flashcards.map((card) => (
-                <Flashcard key={card.id} card={card} />
-              ))}
-            </div>
-          </div>
+        <div className="mb-8">
+          <article className="scrap paper-kraft tape tape-red section3v2-final-conclusion-note section1v2-rot-n1">
+            <p>
+              Kết luận: DC XHCN bảo vệ quyền lao động như một quyền cơ bản do nhà nước đảm bảo; DC TS phụ thuộc nhiều vào
+              tương quan lực lượng giữa chủ và thợ theo cơ chế thị trường.
+            </p>
+          </article>
+        </div>
       </CorkBoard>
     </main>
   );

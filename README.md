@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# infographic-next
 
-## Getting Started
+Interactive scrapbook-style infographic for MLN131 built with Next.js 16 + React 19.
 
-First, run the development server:
+The product focuses on three learning sections:
+- Section 1: drag/drop concept board for democracy origins and evolution.
+- Section 2: drag/drop concept board for socialist democracy emergence and nature.
+- Section 3: structured comparison and practical examples (non drag/drop).
+
+## Core Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Home board with links to all sections |
+| `/section/1` | Interactive board: "Dân chủ" |
+| `/section/2` | Interactive board: "Dân chủ xã hội chủ nghĩa" |
+| `/section/3` | Comparison board + flashcards |
+| `/api/exports/section/[id]` | Download static PNG export for a section |
+
+## Main Features
+
+1. Scrapbook visual system (paper, tape, pushpin, thread overlays) via `styles/scrapbook.css`.
+2. dnd-kit drag/drop for Section 1 and Section 2 with grouped drop-zone logic.
+3. Zustand persisted store with migration sanitization in `stores/quiz-store.ts`.
+4. Section-specific reset actions that clear only relevant progress.
+5. Ribbon celebration on completion and gated export buttons.
+6. Static PNG export API backed by Cloudinary assets.
+
+## Stack
+
+| Layer | Tech |
+| --- | --- |
+| Framework | Next.js `16.1.6` (App Router) |
+| UI | React `19.2.3`, Tailwind CSS v4, custom CSS |
+| DnD | `@dnd-kit/core`, `@dnd-kit/sortable` |
+| Animation | `framer-motion` |
+| State | `zustand` + `persist` middleware |
+| Capture tooling | Playwright (`scripts/capture-section-static-png.mjs`) |
+
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Useful scripts:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+npm run start
+npm run capture:sections
+```
 
-## Learn More
+## Static Export Workflow
 
-To learn more about Next.js, take a look at the following resources:
+1. Generate section screenshots:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run capture:sections
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Upload generated PNG files from `artifacts/section-export/` to Cloudinary.
+3. Update `lib/section-static-export-assets.ts` with `cloudinaryUrl` and `ready`.
+4. Users download via `/api/exports/section/[id]` through `ExportButton`.
 
-## Deploy on Vercel
+Optional capture env vars:
+- `CAPTURE_BASE_URL` (default: `http://127.0.0.1:3000`)
+- `CAPTURE_OUTPUT_DIR` (default: `artifacts/section-export`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+app/                 # App Router pages + API route
+components/          # UI/layout/section components
+lib/                 # Content and interactive data models
+stores/              # Zustand stores
+styles/              # Main scrapbook visual system
+scripts/             # Utilities (static PNG capture)
+```
+
+## Documentation
+
+Detailed docs are in `docs/`:
+- `docs/project-overview-pdr.md`
+- `docs/codebase-summary.md`
+- `docs/code-standards.md`
+- `docs/system-architecture.md`
+- `docs/project-roadmap.md`
+- `docs/deployment-guide.md`
+- `docs/design-guidelines.md`
+
+## Current Gaps
+
+- No automated unit/integration/e2e test suite in repo yet.
+- Section 3 export asset is configured as `ready: false` in `lib/section-static-export-assets.ts`.

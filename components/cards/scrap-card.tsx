@@ -33,8 +33,8 @@ const variantClass: Record<CardVariant, string> = {
 
 const accessoryClass: Record<AccessoryType, string> = {
   tape: 'tape',
-  'tape-red': 'tape-red',
-  'tape-blue': 'tape-blue',
+  'tape-red': 'tape tape-red',
+  'tape-blue': 'tape tape-blue',
   pushpin: 'pushpin',
   none: '',
 };

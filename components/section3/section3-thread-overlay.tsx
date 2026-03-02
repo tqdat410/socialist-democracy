@@ -3,11 +3,22 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Section3PinKey =
-  | "hero-photo"
-  | "matrix-photo"
+  | "hero-title"
+  | "hero-guiding"
+  | "hero-xhcn"
+  | "hero-ts"
   | "example-1"
   | "example-2"
-  | "example-3";
+  | "example-3"
+  | "matrix-note-1"
+  | "matrix-note-2"
+  | "matrix-note-3"
+  | "matrix-note-4"
+  | "matrix-note-5"
+  | "matrix-note-6"
+  | "matrix-note-7"
+  | "matrix-note-8"
+  | "matrix-note-9";
 
 type Point = { x: number; y: number };
 
@@ -18,12 +29,28 @@ type Geometry = {
 };
 
 const PIN_KEYS: Section3PinKey[] = [
-  "hero-photo",
-  "matrix-photo",
+  "hero-title",
+  "hero-guiding",
+  "hero-xhcn",
+  "hero-ts",
   "example-1",
   "example-2",
   "example-3",
+  "matrix-note-1",
+  "matrix-note-2",
+  "matrix-note-3",
+  "matrix-note-4",
+  "matrix-note-5",
+  "matrix-note-6",
+  "matrix-note-7",
+  "matrix-note-8",
+  "matrix-note-9",
 ];
+
+type ThreadPath = {
+  d: string;
+  className: "section3v2-thread-path" | "section3v2-thread-path-gold";
+};
 
 function readPin(container: HTMLElement, key: Section3PinKey): Point | null {
   const element = container.querySelector<HTMLElement>(
@@ -73,6 +100,36 @@ function createThreadPath(from: Point, to: Point, curveDirection: 1 | -1, curveS
   const normalX = (-innerDy / innerLength) * bend;
   const normalY = (innerDx / innerLength) * bend;
   return `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} Q ${(midX + normalX).toFixed(1)} ${(midY + normalY).toFixed(1)} ${end.x.toFixed(1)} ${end.y.toFixed(1)}`;
+}
+
+function createStraightThreadPath(from: Point, to: Point): string {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const rawLength = Math.max(1, Math.hypot(dx, dy));
+  const ux = dx / rawLength;
+  const uy = dy / rawLength;
+  const trim = Math.min(9, rawLength * 0.28);
+  const start = { x: from.x + ux * trim, y: from.y + uy * trim };
+  const end = { x: to.x - ux * trim, y: to.y - uy * trim };
+  return `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} L ${end.x.toFixed(1)} ${end.y.toFixed(1)}`;
+}
+
+function createDownwardThreadPath(from: Point, to: Point): string {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const rawLength = Math.max(1, Math.hypot(dx, dy));
+  const ux = dx / rawLength;
+  const uy = dy / rawLength;
+  const trim = Math.min(9, rawLength * 0.28);
+  const start = { x: from.x + ux * trim, y: from.y + uy * trim };
+  const end = { x: to.x - ux * trim, y: to.y - uy * trim };
+  const innerDx = end.x - start.x;
+  const innerDy = end.y - start.y;
+  const innerLength = Math.max(1, Math.hypot(innerDx, innerDy));
+  const midX = (start.x + end.x) / 2;
+  const midY = (start.y + end.y) / 2;
+  const bend = Math.min(42, Math.max(18, innerLength * 0.11));
+  return `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} Q ${midX.toFixed(1)} ${(midY + bend).toFixed(1)} ${end.x.toFixed(1)} ${end.y.toFixed(1)}`;
 }
 
 export default function Section3ThreadOverlay({
@@ -164,14 +221,66 @@ export default function Section3ThreadOverlay({
     };
   }, [containerSelector]);
 
-  const paths = useMemo(() => {
+  const paths = useMemo<ThreadPath[] | null>(() => {
     if (!geometry) return null;
     const p = geometry.pins;
     return [
-      createThreadPath(p["hero-photo"], p["matrix-photo"], 1),
-      createThreadPath(p["matrix-photo"], p["example-1"], -1),
-      createThreadPath(p["matrix-photo"], p["example-2"], 1),
-      createThreadPath(p["matrix-photo"], p["example-3"], -1),
+      {
+        d: createThreadPath(p["hero-title"], p["hero-guiding"], 1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createThreadPath(p["hero-guiding"], p["hero-xhcn"], -1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createThreadPath(p["hero-guiding"], p["hero-ts"], 1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createStraightThreadPath(p["matrix-note-1"], p["matrix-note-2"]),
+        className: "section3v2-thread-path-gold",
+      },
+      {
+        d: createStraightThreadPath(p["matrix-note-2"], p["matrix-note-3"]),
+        className: "section3v2-thread-path-gold",
+      },
+      {
+        d: createStraightThreadPath(p["matrix-note-3"], p["matrix-note-4"]),
+        className: "section3v2-thread-path-gold",
+      },
+      {
+        d: createStraightThreadPath(p["matrix-note-4"], p["matrix-note-5"]),
+        className: "section3v2-thread-path-gold",
+      },
+      {
+        d: createStraightThreadPath(p["matrix-note-5"], p["matrix-note-1"]),
+        className: "section3v2-thread-path-gold",
+      },
+      {
+        d: createThreadPath(p["matrix-note-6"], p["matrix-note-7"], 1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createThreadPath(p["matrix-note-7"], p["matrix-note-8"], -1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createDownwardThreadPath(p["matrix-note-9"], p["matrix-note-8"]),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createThreadPath(p["matrix-note-9"], p["matrix-note-6"], -1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createThreadPath(p["example-1"], p["example-2"], 1),
+        className: "section3v2-thread-path",
+      },
+      {
+        d: createDownwardThreadPath(p["example-2"], p["example-3"]),
+        className: "section3v2-thread-path",
+      },
     ];
   }, [geometry]);
 
@@ -187,7 +296,7 @@ export default function Section3ThreadOverlay({
         preserveAspectRatio="none"
       >
         {paths.map((pathData, index) => (
-          <path key={index} className="section3v2-thread-path" d={pathData} />
+          <path key={index} className={pathData.className} d={pathData.d} />
         ))}
       </svg>
     </div>
