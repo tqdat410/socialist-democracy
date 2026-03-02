@@ -16,17 +16,17 @@ const fadeUp = {
 
 const greekIllustration = {
   title: "Hy Lạp",
-  src: "/images/home-page-democracy-symbol-illustration-v2.png",
+  src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421373/hylap_jahgk5.png",
 } as const;
 
 const marxLeninIllustration = {
   title: "Mác-Lênin",
-  src: "/images/home-page-democracy-symbol-illustration.png",
+  src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/mac_lenin_opxtki.png",
 } as const;
 
 const hoChiMinhIllustration = {
   title: "Hồ Chí Minh",
-  src: "/images/home-page-democracy-symbol-illustration-v2.png",
+  src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421373/hcm_hligrt.png",
 } as const;
 
 const hcmLeftNote = "dân chủ trước hết là một giá trị nhân loại chung" as const;
@@ -61,7 +61,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "01",
     title: "Cộng sản nguyên thủy",
-    imageSrc: "/images/home-page-democracy-symbol-illustration-v2.png",
+    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421385/csnt_zpbrm6.png",
     notes: [
       { text: "mầm mống của dân chủ", className: "paper-postit-yellow tape", span: "full" },
       { text: "Ph. Ăngghen", className: "paper-kraft tape", span: "full" },
@@ -72,7 +72,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "02",
     title: "Chiếm hữu nô lệ",
-    imageSrc: "/images/home-page-democracy-symbol-illustration.png",
+    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/chnl_xs6xxx.png",
     notes: [
       { text: "dân chủ chủ nô", className: "paper-postit-yellow tape", span: "full" },
       { text: "nền dân chủ của thiểu số, bảo vệ lợi ích của giai cấp cầm quyền", className: "paper-lined tape", span: "full" },
@@ -81,7 +81,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "03",
     title: "Phong kiến",
-    imageSrc: "/images/home-page-democracy-symbol-illustration-v2.png",
+    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/pk_i1njbb.png",
     notes: [
       { text: "độc tài chuyên chế phong kiến", className: "paper-postit-pink tape tape-red", span: "full" },
       { text: "quân chủ phong kiến", className: "paper-postit-blue tape tape-blue", span: "full" },
@@ -90,7 +90,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "04",
     title: "Tư bản chủ nghĩa",
-    imageSrc: "/images/home-page-democracy-symbol-illustration.png",
+    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/tbcn_rgem7x.png",
     notes: [
       { text: "Cuối XIV - Đầu XV", className: "paper-postit-yellow tape", span: "half" },
       { text: "dân chủ tư sản", className: "paper-postit-pink tape tape-red", span: "half" },
@@ -100,7 +100,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "05",
     title: "Xã hội chủ nghĩa",
-    imageSrc: "/images/home-page-democracy-symbol-illustration-v2.png",
+    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/xhcn_a2x2ci.png",
     notes: [
       { text: "Cách mạng Tháng Mười Nga (1917)", className: "paper-kraft tape", span: "full" },
       { text: "dân chủ vô sản", className: "paper-postit-blue tape tape-blue", span: "half" },
@@ -111,7 +111,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "06",
     title: "Xã hội cộng sản chủ nghĩa",
-    imageSrc: "/images/home-page-democracy-symbol-illustration.png",
+    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/cscn_elhp11.png",
     notes: [
       { text: "tương lai", className: "paper-postit-yellow tape", span: "half" },
       { text: "không còn giai cấp", className: "paper-postit-blue tape tape-blue", span: "half" },
@@ -939,7 +939,7 @@ export default function Section1Content() {
           <figure className="scrap section1v2-polaroid pushpin section1v2-hero-photo section1v2-rot-p3">
             <div className="section1v2-polaroid-body">
               <Image
-                src="/images/home-page-democracy-symbol-illustration-v2.png"
+                src="https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/title_01_o3uorf.png"
                 alt="Placeholder minh họa biểu tượng dân chủ"
                 fill
                 className="section1v2-polaroid-img"

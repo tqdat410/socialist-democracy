@@ -22,7 +22,7 @@ export default function HomePage() {
             <span className="home-thread-pin-anchor" data-thread-pin="photo" aria-hidden />
             <div className="home-hero-photo-body">
               <Image
-                src="/images/home-page-democracy-symbol-illustration-v2.png"
+                src="https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/homepage_qigykn.png"
                 alt="Biểu tượng dân chủ"
                 fill
                 className="home-hero-photo-img"
