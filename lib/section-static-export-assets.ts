@@ -23,8 +23,8 @@ export const SECTION_STATIC_EXPORT_ASSETS: Record<SectionId, SectionStaticExport
   "3": {
     sectionId: "3",
     filename: "section-3-dan-chu-xhcn.png",
-    cloudinaryUrl: "",
-    ready: false,
+    cloudinaryUrl: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772465947/section-3_gxguk4.png",
+    ready: true,
   },
 };
 

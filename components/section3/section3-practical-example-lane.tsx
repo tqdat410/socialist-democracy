@@ -1,10 +1,8 @@
 "use client";
 
-import BoardPhotoCard from "@/components/layout/board-photo-card";
-import {
-  getSectionIllustrationSlot,
-  section3PracticalExamples,
-} from "@/lib/content-data";
+import Section3DropSlot from "@/components/section3/section3-drop-slot";
+import { section3PracticalExamples } from "@/lib/content-data";
+import { getSection3PieceAnswerZoneId, type Section3PieceId } from "@/lib/section3-interactive-data";
 
 const examplePaperClasses = [
   "paper-postit-yellow",
@@ -17,6 +15,12 @@ const exampleTiltClasses = [
   "section3v2-tilt-x",
 ] as const;
 
+const exampleImagePieceIds: readonly Section3PieceId[] = [
+  "s3-qn-example-1-image",
+  "s3-qn-example-2-image",
+  "s3-qn-example-3-image",
+];
+
 export default function Section3PracticalExampleLane() {
   return (
     <section className="section3v2-example-wrap mb-8">
@@ -28,16 +32,11 @@ export default function Section3PracticalExampleLane() {
         {section3PracticalExamples.map((example, index) => {
           const paperClass = examplePaperClasses[index % examplePaperClasses.length];
           const tiltClass = exampleTiltClasses[index % exampleTiltClasses.length];
+          const imagePieceId = exampleImagePieceIds[index];
 
           return (
             <article key={example.id} className={`scrap section3v2-example-card ${paperClass} ${tiltClass}`}>
-              <BoardPhotoCard
-                slot={getSectionIllustrationSlot(example.illustrationSlotId)}
-                className="section3v2-example-photo"
-                pinAttribute="data-section3-thread-pin"
-                pinKey={`example-${index + 1}`}
-                sizes="(max-width: 768px) 74vw, 220px"
-              />
+              <Section3DropSlot pieceId={imagePieceId} zoneId={getSection3PieceAnswerZoneId(imagePieceId)} />
 
               <h3>{example.title}</h3>
 

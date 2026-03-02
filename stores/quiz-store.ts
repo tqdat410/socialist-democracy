@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { section2Zones, section3Zones } from "@/lib/quiz-data";
 import { section1InteractiveZones } from "@/lib/section1-interactive-data";
 import { section2InteractiveZones } from "@/lib/section2-interactive-data";
+import { section3InteractiveZones } from "@/lib/section3-interactive-data";
 
 interface QuizState {
   droppedItems: Record<string, string>;
@@ -32,6 +33,7 @@ const PERSIST_VERSION = 4;
 const VALID_ZONE_IDS = new Set<string>([
   ...section1InteractiveZones.map((zone) => zone.id),
   ...section2InteractiveZones.map((zone) => zone.id),
+  ...section3InteractiveZones.map((zone) => zone.id),
   ...section2Zones.map((zone) => zone.id),
   ...section3Zones.map((zone) => zone.id),
 ]);
