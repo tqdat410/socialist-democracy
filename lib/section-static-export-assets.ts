@@ -17,8 +17,8 @@ export const SECTION_STATIC_EXPORT_ASSETS: Record<SectionId, SectionStaticExport
   "2": {
     sectionId: "2",
     filename: "section-2-lich-su-dan-chu.png",
-    cloudinaryUrl: "",
-    ready: false,
+    cloudinaryUrl: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772451276/section-2_pa8efg.png",
+    ready: true,
   },
   "3": {
     sectionId: "3",

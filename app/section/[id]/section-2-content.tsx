@@ -1,14 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import ExportButton from "@/components/export/export-button";
+import RibbonFall from "@/components/feedback/ribbon-fall";
 import BoardPhotoCard from "@/components/layout/board-photo-card";
 import CorkBoard from "@/components/layout/cork-board";
 import SectionNav from "@/components/layout/section-nav";
 import Section2EmergenceBoard from "@/components/section2/section2-emergence-board";
 import Section2NatureDimensionsBoard from "@/components/section2/section2-nature-dimensions-board";
+import Section2QuizBoard from "@/components/section2/section2-quiz-board";
+import Section2ResetButton from "@/components/section2/section2-reset-button";
 import Section2ThreadOverlay from "@/components/section2/section2-thread-overlay";
 import { getSectionIllustrationSlot } from "@/lib/content-data";
+import {
+  section2InteractiveItems,
+  section2InteractiveZones,
+} from "@/lib/section2-interactive-data";
+import { useQuizStore } from "@/stores/quiz-store";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -18,17 +27,32 @@ const fadeUp = {
 };
 
 export default function Section2Content() {
-  return (
-    <main className="home-board min-h-screen pb-16">
-      <SectionNav
-        sectionId="2"
-        title="DÂN CHỦ XÃ HỘI CHỦ NGHĨA"
-        showScore={false}
-        rightActions={<ExportButton sectionId="2" compact usePushpin />}
-      />
+  const droppedItems = useQuizStore((s) => s.droppedItems);
+  const droppedItemIds = useMemo(() => new Set(Object.values(droppedItems)), [droppedItems]);
+  const section2Complete = useMemo(
+    () => section2InteractiveItems.every((item) => droppedItemIds.has(item.id)),
+    [droppedItemIds],
+  );
+  const ribbonBurstKey = section2Complete ? droppedItemIds.size : 0;
 
-      <CorkBoard id="section-2-board" className="section2v2-board-shell">
-        <Section2ThreadOverlay />
+  return (
+    <Section2QuizBoard items={section2InteractiveItems} zones={section2InteractiveZones} quiz="2">
+      <RibbonFall burstKey={ribbonBurstKey} />
+      <main className="home-board min-h-screen pb-16">
+        <SectionNav
+          sectionId="2"
+          title="DÂN CHỦ XÃ HỘI CHỦ NGHĨA"
+          showScore={false}
+          rightActions={(
+            <div className="flex items-center gap-2">
+              <Section2ResetButton />
+              {section2Complete ? <ExportButton sectionId="2" compact usePushpin /> : null}
+            </div>
+          )}
+        />
+
+        <CorkBoard id="section-2-board" className="section2v2-board-shell">
+          <Section2ThreadOverlay />
 
           <motion.section {...fadeUp} className="section2v2-hero-wrap mb-8">
             <BoardPhotoCard
@@ -54,7 +78,8 @@ export default function Section2Content() {
           <motion.div {...fadeUp} transition={{ delay: 0.16, duration: 0.45 }}>
             <Section2NatureDimensionsBoard />
           </motion.div>
-      </CorkBoard>
-    </main>
+        </CorkBoard>
+      </main>
+    </Section2QuizBoard>
   );
 }
