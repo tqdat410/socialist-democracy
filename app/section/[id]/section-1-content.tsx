@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import CorkBoard from "@/components/layout/cork-board";
@@ -21,13 +20,6 @@ import {
   type Section1ZoneId,
 } from "@/lib/section1-interactive-data";
 import { useQuizStore } from "@/stores/quiz-store";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.45 },
-};
 
 const greekIllustration = {
   title: "Hy Lạp",
@@ -954,7 +946,7 @@ export default function Section1Content() {
       <main className="home-board min-h-screen pb-16">
         <SectionNav
           sectionId="1"
-          title="PHẦN 1 · DÂN CHỦ"
+          title="DÂN CHỦ"
           showScore={false}
           rightActions={(
             <div className="flex items-center gap-2">
@@ -965,7 +957,7 @@ export default function Section1Content() {
         />
 
         <CorkBoard id="section-1-board" className="section1v2-board">
-        <motion.section {...fadeUp} className="section1v2-hero-wrap mb-8">
+        <section className="section1v2-hero-wrap mb-8">
           <article className="scrap section1v2-title-note tape section1v2-rot-n2">
             <h1 className="section1v2-hero-title">Dân chủ và sự ra đời, phát triển của dân chủ</h1>
           </article>
@@ -982,9 +974,9 @@ export default function Section1Content() {
             </div>
             <figcaption>dân chủ</figcaption>
           </figure>
-        </motion.section>
+        </section>
 
-        <motion.section {...fadeUp} transition={{ delay: 0.08, duration: 0.45 }} className="mb-8">
+        <section className="mb-8">
           <div className="scrap paper-kraft tape section1v2-section-tag section1v2-rot-n1">
             <h2>1. Quan niệm về dân chủ</h2>
           </div>
@@ -1081,11 +1073,11 @@ export default function Section1Content() {
             <HcmThreadOverlay />
           </div>
 
-        </motion.section>
+        </section>
 
         <ImageChainThreadOverlay />
 
-        <motion.section {...fadeUp} transition={{ delay: 0.14, duration: 0.45 }} className="mb-8">
+        <section className="mb-8">
           <div className="scrap paper-kraft tape tape-red section1v2-section-tag section1v2-rot-p1">
             <h2>2. Sự ra đời và phát triển của dân chủ</h2>
           </div>
@@ -1121,7 +1113,7 @@ export default function Section1Content() {
 
             <EvolutionImageChainThreadOverlay />
           </div>
-        </motion.section>
+        </section>
         </CorkBoard>
       </main>
     </Section1QuizBoard>

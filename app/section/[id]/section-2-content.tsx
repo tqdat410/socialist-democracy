@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useMemo } from "react";
 import ExportButton from "@/components/export/export-button";
 import RibbonFall from "@/components/feedback/ribbon-fall";
@@ -18,13 +17,6 @@ import {
   section2InteractiveZones,
 } from "@/lib/section2-interactive-data";
 import { useQuizStore } from "@/stores/quiz-store";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.45 },
-};
 
 export default function Section2Content() {
   const droppedItems = useQuizStore((s) => s.droppedItems);
@@ -54,7 +46,7 @@ export default function Section2Content() {
         <CorkBoard id="section-2-board" className="section2v2-board-shell">
           <Section2ThreadOverlay />
 
-          <motion.section {...fadeUp} className="section2v2-hero-wrap mb-8">
+          <section className="section2v2-hero-wrap mb-8">
             <BoardPhotoCard
               slot={getSectionIllustrationSlot("s2-hero")}
               className="section2v2-hero-photo section2v2-photo-tilt-hero"
@@ -69,15 +61,15 @@ export default function Section2Content() {
                 <h2>Xã hội chủ nghĩa</h2>
               </article>
             </div>
-          </motion.section>
+          </section>
 
-          <motion.div {...fadeUp} transition={{ delay: 0.12, duration: 0.45 }}>
+          <div>
             <Section2EmergenceBoard />
-          </motion.div>
+          </div>
 
-          <motion.div {...fadeUp} transition={{ delay: 0.16, duration: 0.45 }}>
+          <div>
             <Section2NatureDimensionsBoard />
-          </motion.div>
+          </div>
         </CorkBoard>
       </main>
     </Section2QuizBoard>
