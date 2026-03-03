@@ -12,6 +12,7 @@ import Section1EvolutionNoteDropZone, {
 import Section1DropSlot from "@/components/section1/section1-drop-slot";
 import Section1QuizBoard from "@/components/section1/section1-quiz-board";
 import Section1ResetButton from "@/components/section1/section1-reset-button";
+import { buildCloudinaryUrl, cloudinaryAssets } from "@/lib/cloudinary";
 import {
   section1InteractiveItems,
   section1InteractiveZones,
@@ -23,7 +24,7 @@ import { useQuizStore } from "@/stores/quiz-store";
 
 const greekIllustration = {
   title: "Hy Lạp",
-  src: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421373/hylap_jahgk5.png",
+  src: buildCloudinaryUrl(cloudinaryAssets.section1Greek),
 } as const;
 
 const hcmLeftNote = "dân chủ trước hết là một giá trị nhân loại chung" as const;
@@ -53,7 +54,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "01",
     title: "Cộng sản nguyên thủy",
-    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421385/csnt_zpbrm6.png",
+    imageSrc: buildCloudinaryUrl(cloudinaryAssets.section1Evolution01),
     noteDropZoneId: "s1-zone-ev-block-1",
     notes: [
       { text: "mầm mống của dân chủ", className: "paper-postit-yellow tape", span: "full", detachablePieceId: "s1-ev-note-1-seed" },
@@ -65,7 +66,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "02",
     title: "Chiếm hữu nô lệ",
-    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/chnl_xs6xxx.png",
+    imageSrc: buildCloudinaryUrl(cloudinaryAssets.section1Evolution02),
     imagePieceId: "s1-ev-image-02",
     imageZoneId: "s1-zone-ev-image-02",
     noteDropZoneId: "s1-zone-ev-block-2",
@@ -77,7 +78,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "03",
     title: "Phong kiến",
-    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/pk_i1njbb.png",
+    imageSrc: buildCloudinaryUrl(cloudinaryAssets.section1Evolution03),
     imagePieceId: "s1-ev-image-03",
     imageZoneId: "s1-zone-ev-image-03",
     noteDropZoneId: "s1-zone-ev-block-3",
@@ -89,7 +90,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "04",
     title: "Tư bản chủ nghĩa",
-    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/tbcn_rgem7x.png",
+    imageSrc: buildCloudinaryUrl(cloudinaryAssets.section1Evolution04),
     imagePieceId: "s1-ev-image-04",
     imageZoneId: "s1-zone-ev-image-04",
     noteDropZoneId: "s1-zone-ev-block-4",
@@ -102,7 +103,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "05",
     title: "Xã hội chủ nghĩa",
-    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/xhcn_a2x2ci.png",
+    imageSrc: buildCloudinaryUrl(cloudinaryAssets.section1Evolution05),
     noteDropZoneId: "s1-zone-ev-block-5",
     notes: [
       { text: "Cách mạng Tháng Mười Nga (1917)", className: "paper-kraft tape", span: "full" },
@@ -114,7 +115,7 @@ const democracyEvolutionBlocks: ReadonlyArray<DemocracyEvolutionBlock> = [
   {
     orderLabel: "06",
     title: "Xã hội cộng sản chủ nghĩa",
-    imageSrc: "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/cscn_elhp11.png",
+    imageSrc: buildCloudinaryUrl(cloudinaryAssets.section1Evolution06),
     imagePieceId: "s1-ev-image-06",
     imageZoneId: "s1-zone-ev-image-06",
     noteDropZoneId: "s1-zone-ev-block-6",
@@ -965,7 +966,7 @@ export default function Section1Content() {
           <figure className="scrap section1v2-polaroid pushpin section1v2-hero-photo section1v2-rot-p3">
             <div className="section1v2-polaroid-body">
               <Image
-                src="https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/title_01_o3uorf.png"
+                src={buildCloudinaryUrl(cloudinaryAssets.section1Title)}
                 alt="Minh họa biểu tượng dân chủ"
                 fill
                 className="section1v2-polaroid-img"

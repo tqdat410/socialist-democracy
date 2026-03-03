@@ -14,6 +14,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import "@/styles/scrapbook.css";
+import ResourceLoadingGate from "@/components/layout/resource-loading-gate";
 
 const anton = Anton({
   weight: "400",
@@ -97,7 +98,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body className={`${fontVars} antialiased`}>{children}</body>
+      <body className={`${fontVars} antialiased`}>
+        <ResourceLoadingGate>{children}</ResourceLoadingGate>
+      </body>
     </html>
   );
 }

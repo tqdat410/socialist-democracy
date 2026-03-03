@@ -1,4 +1,5 @@
 import type { Section2PieceId } from "@/lib/section2-interactive-data";
+import { buildCloudinaryUrl, cloudinaryAssets } from "@/lib/cloudinary";
 
 export type Section2ImagePieceConfig = {
   slotId: string;
@@ -158,7 +159,7 @@ export const section2NotePieces: Partial<Record<Section2PieceId, Section2NotePie
   },
 };
 
-export const section2MarxImageUrl = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/mac_lenin_opxtki.png";
+export const section2MarxImageUrl = buildCloudinaryUrl(cloudinaryAssets.section1MarxLenin);
 
 export function getSection2InventoryFrame(pieceId: Section2PieceId): { width: number; height: number; scale: number } {
   switch (pieceId) {

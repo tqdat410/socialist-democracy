@@ -3,6 +3,7 @@
 import type { Ref } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { buildCloudinaryUrl, cloudinaryAssets } from "@/lib/cloudinary";
 import type { Section1PieceId } from "@/lib/section1-interactive-data";
 
 type Section1PieceMode = "board" | "ghost" | "inventory";
@@ -14,12 +15,12 @@ interface Section1PieceProps {
   setNodeRef?: Ref<HTMLElement>;
 }
 
-const MARX_LENIN_IMAGE_URL = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/mac_lenin_opxtki.png";
-const HCM_IMAGE_URL = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421373/hcm_hligrt.png";
-const EVOLUTION_IMAGE_02_URL = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/chnl_xs6xxx.png";
-const EVOLUTION_IMAGE_03_URL = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421374/pk_i1njbb.png";
-const EVOLUTION_IMAGE_04_URL = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421375/tbcn_rgem7x.png";
-const EVOLUTION_IMAGE_06_URL = "https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/cscn_elhp11.png";
+const MARX_LENIN_IMAGE_URL = buildCloudinaryUrl(cloudinaryAssets.section1MarxLenin);
+const HCM_IMAGE_URL = buildCloudinaryUrl(cloudinaryAssets.section1Hcm);
+const EVOLUTION_IMAGE_02_URL = buildCloudinaryUrl(cloudinaryAssets.section1Evolution02);
+const EVOLUTION_IMAGE_03_URL = buildCloudinaryUrl(cloudinaryAssets.section1Evolution03);
+const EVOLUTION_IMAGE_04_URL = buildCloudinaryUrl(cloudinaryAssets.section1Evolution04);
+const EVOLUTION_IMAGE_06_URL = buildCloudinaryUrl(cloudinaryAssets.section1Evolution06);
 
 const MARX_NOTE_1 = "(1) Là một giá trị xã hội phản ánh những quyền cơ bản của con người";
 const MARX_NOTE_3 = "(3) Là một trong những nguyên tắc hoạt động của các tổ chức chính trị–xã hội";

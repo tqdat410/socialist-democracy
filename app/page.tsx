@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { sectionDescriptions } from "@/lib/content-data";
+import { buildCloudinaryUrl, cloudinaryAssets } from "@/lib/cloudinary";
 import { HomeThreadOverlay } from "@/components/layout/home-thread-overlay";
 
 const NOTE_COLOR_CLASS = ["home-note-1", "home-note-2", "home-note-3"] as const;
@@ -22,7 +23,7 @@ export default function HomePage() {
             <span className="home-thread-pin-anchor" data-thread-pin="photo" aria-hidden />
             <div className="home-hero-photo-body">
               <Image
-                src="https://res.cloudinary.com/do6szo7zy/image/upload/v1772421372/homepage_qigykn.png"
+                src={buildCloudinaryUrl(cloudinaryAssets.homepageHero)}
                 alt="Biểu tượng dân chủ"
                 fill
                 className="home-hero-photo-img"
