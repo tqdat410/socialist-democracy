@@ -70,7 +70,7 @@ const specialElite = Special_Elite({
 });
 
 export const metadata: Metadata = {
-  title: "Dan chu XHCN - Interactive Infographic",
+  title: "Dân Chủ - Interactive Infographic",
   description:
     "Chuong 4 — MLN131 — Nhom 3: Interactive infographic ve Dan chu Xa hoi Chu nghia",
 };
