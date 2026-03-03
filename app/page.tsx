@@ -1,12 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useMemo } from "react";
 import { sectionDescriptions } from "@/lib/content-data";
 import { buildCloudinaryUrl, cloudinaryAssets } from "@/lib/cloudinary";
 import { HomeThreadOverlay } from "@/components/layout/home-thread-overlay";
+import { section1InteractiveItems } from "@/lib/section1-interactive-data";
+import { section2InteractiveItems } from "@/lib/section2-interactive-data";
+import { section3InteractiveItems } from "@/lib/section3-interactive-data";
+import { useQuizStore } from "@/stores/quiz-store";
 
 const NOTE_COLOR_CLASS = ["home-note-1", "home-note-2", "home-note-3"] as const;
+type SectionDoneKey = "1" | "2" | "3";
 
 export default function HomePage() {
+  const droppedItems = useQuizStore((s) => s.droppedItems);
+  const droppedItemIds = useMemo(() => new Set(Object.values(droppedItems)), [droppedItems]);
+
+  const doneBySection = useMemo<Record<SectionDoneKey, boolean>>(
+    () => ({
+      "1": section1InteractiveItems.every((item) => droppedItemIds.has(item.id)),
+      "2": section2InteractiveItems.every((item) => droppedItemIds.has(item.id)),
+      "3": section3InteractiveItems.every((item) => droppedItemIds.has(item.id)),
+    }),
+    [droppedItemIds],
+  );
+
   return (
     <main className="home-board min-h-screen pb-16">
       <div className="home-shell max-w-[980px] mx-auto px-4 md:px-6 pt-8 md:pt-12">
@@ -56,6 +76,11 @@ export default function HomePage() {
                   <p className="home-note-part">PHẦN {section.id}</p>
                   <h2>{section.title}</h2>
                   <p className="home-note-subtitle">{section.subtitle}</p>
+                  {doneBySection[section.id as SectionDoneKey] ? (
+                    <p className="home-note-done-badge" aria-label={`Phần ${section.id} đã hoàn thành`}>
+                      done
+                    </p>
+                  ) : null}
                 </article>
               </Link>
             ))}
