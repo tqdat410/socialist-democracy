@@ -74,9 +74,9 @@ export const metadata: Metadata = {
   description:
     "Chuong 4 — MLN131 — Nhom 3: Interactive infographic ve Dan chu Xa hoi Chu nghia",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 
