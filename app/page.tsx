@@ -31,7 +31,7 @@ export default function HomePage() {
                 priority
               />
             </div>
-            <figcaption>minh họa</figcaption>
+            <figcaption>mln131</figcaption>
           </figure>
         </section>
 

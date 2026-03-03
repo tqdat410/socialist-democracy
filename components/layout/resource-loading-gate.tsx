@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   criticalPreloadImageUrls,
   deferredPreloadImageUrls,
@@ -8,6 +8,19 @@ import {
 
 const MIN_LOADING_SCREEN_MS = 420;
 const MAX_PRELOAD_WAIT_MS = 3000;
+const PROGRESS_STEP_MS = 22;
+const LOADING_FADE_OUT_MS = 420;
+const THREAD_PATH_D = "M 28 24 Q 160 88 292 24";
+const NORMALIZED_PATH_LENGTH = 100;
+
+type LoadingGateSnapshot = {
+  loadedCount: number;
+  preloadComplete: boolean;
+  loadingVisible: boolean;
+  displayProgress: number;
+};
+
+let inMemoryLoadingGateSnapshot: LoadingGateSnapshot | null = null;
 
 function preloadImage(url: string): Promise<void> {
   return new Promise((resolve) => {
@@ -46,8 +59,19 @@ export default function ResourceLoadingGate({
     () => Array.from(new Set(deferredPreloadImageUrls)),
     [],
   );
-  const [loadedCount, setLoadedCount] = useState(0);
-  const [ready, setReady] = useState(() => criticalUrls.length === 0);
+  const [loadedCount, setLoadedCount] = useState(
+    () => inMemoryLoadingGateSnapshot?.loadedCount ?? 0,
+  );
+  const [preloadComplete, setPreloadComplete] = useState(
+    () => inMemoryLoadingGateSnapshot?.preloadComplete ?? criticalUrls.length === 0,
+  );
+  const [loadingVisible, setLoadingVisible] = useState(
+    () => inMemoryLoadingGateSnapshot?.loadingVisible ?? true,
+  );
+  const [displayProgress, setDisplayProgress] = useState(
+    () => Math.max(1, inMemoryLoadingGateSnapshot?.displayProgress ?? 1),
+  );
+  const progressPathRef = useRef<SVGPathElement | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -60,7 +84,7 @@ export default function ResourceLoadingGate({
 
     const forceReadyTimeout = window.setTimeout(() => {
       if (!cancelled) {
-        setReady(true);
+        setPreloadComplete(true);
       }
     }, MAX_PRELOAD_WAIT_MS);
 
@@ -68,7 +92,7 @@ export default function ResourceLoadingGate({
       criticalUrls.map((url) =>
         preloadImage(url).then(() => {
           if (!cancelled) {
-            setLoadedCount((prev) => prev + 1);
+            setLoadedCount((prev) => Math.min(criticalUrls.length, prev + 1));
           }
         }),
       ),
@@ -77,7 +101,7 @@ export default function ResourceLoadingGate({
       const waitMs = Math.max(0, MIN_LOADING_SCREEN_MS - elapsedMs);
       completeTimeout = window.setTimeout(() => {
         if (!cancelled) {
-          setReady(true);
+          setPreloadComplete(true);
         }
       }, waitMs);
     });
@@ -92,50 +116,111 @@ export default function ResourceLoadingGate({
   }, [criticalUrls]);
 
   useEffect(() => {
-    if (!ready || !deferredUrls.length) {
+    if (!preloadComplete || !deferredUrls.length) {
       return;
     }
 
     void Promise.all(deferredUrls.map((url) => preloadImage(url)));
-  }, [deferredUrls, ready]);
+  }, [deferredUrls, preloadComplete]);
 
-  if (ready) {
-    return <>{children}</>;
-  }
-
-  const progress = criticalUrls.length
+  const actualPercent = criticalUrls.length
     ? Math.round((loadedCount / criticalUrls.length) * 100)
     : 100;
+  const targetProgress = preloadComplete
+    ? 100
+    : Math.max(1, Math.min(90, actualPercent));
+
+  useEffect(() => {
+    inMemoryLoadingGateSnapshot = {
+      loadedCount,
+      preloadComplete,
+      loadingVisible,
+      displayProgress,
+    };
+  }, [displayProgress, loadedCount, loadingVisible, preloadComplete]);
+
+  useEffect(() => {
+    if (displayProgress >= targetProgress) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setDisplayProgress((previous) => {
+        if (previous >= targetProgress) {
+          window.clearInterval(intervalId);
+          return previous;
+        }
+
+        return Math.min(targetProgress, previous + 1);
+      });
+    }, PROGRESS_STEP_MS);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [displayProgress, targetProgress]);
+
+  const shouldRevealContent = preloadComplete && displayProgress >= 100;
+
+  useEffect(() => {
+    if (!shouldRevealContent || !loadingVisible) {
+      return;
+    }
+
+    const hideTimeout = window.setTimeout(() => {
+      setLoadingVisible(false);
+    }, LOADING_FADE_OUT_MS);
+
+    return () => {
+      window.clearTimeout(hideTimeout);
+    };
+  }, [loadingVisible, shouldRevealContent]);
+
+  const progress = Math.round(Math.max(1, Math.min(100, displayProgress)));
 
   return (
-    <main className="home-board min-h-screen flex items-center justify-center p-4">
-      <section className="scrap paper-magazine pushpin max-w-[440px] w-full p-6 text-center">
-        <h1 className="font-[family-name:var(--font-anton)] text-[1.1rem] tracking-[0.12em] mb-2">
-          ĐANG TẢI INFOGRAPHIC
-        </h1>
-        <p className="font-[family-name:var(--font-be-vietnam-pro)] text-sm opacity-90 mb-4">
-          Chuẩn bị ảnh và bố cục để hiển thị mượt hơn.
-        </p>
+    <div className="loading-gate-root">
+      <div className={`loading-gate-content ${shouldRevealContent || !loadingVisible ? "is-visible" : ""}`}>
+        {children}
+      </div>
 
-        <div
-          aria-hidden
-          className="w-full h-2 rounded-sm overflow-hidden"
-          style={{ background: "rgba(255,255,255,0.4)" }}
+      {loadingVisible ? (
+        <main
+          className={`home-board loading-gate-screen min-h-screen flex items-center justify-center p-4 ${shouldRevealContent ? "is-fading" : ""}`}
         >
-          <div
-            className="h-full transition-all duration-300 ease-out"
-            style={{
-              width: `${progress}%`,
-              background:
-                "linear-gradient(90deg, rgba(204,32,40,0.95), rgba(255,180,80,0.95))",
-            }}
-          />
-        </div>
+          <section className="loading-note-stack" aria-live="polite">
+            <article className="scrap paper-postit-yellow tape tape-red loading-note-card">
+              <h1 className="loading-note-title">Đang tải</h1>
 
-        <p className="font-[family-name:var(--font-anton)] text-xs tracking-[0.14em] mt-3">
-          {progress}%
-        </p>
-      </section>
-    </main>
+              <div className="loading-thread-wrap" aria-hidden>
+                <svg
+                  className="loading-thread-svg"
+                  viewBox="0 0 320 96"
+                  preserveAspectRatio="none"
+                >
+                  <path className="loading-thread-base" d={THREAD_PATH_D} />
+                  <path
+                    ref={progressPathRef}
+                    className="loading-thread-progress"
+                    d={THREAD_PATH_D}
+                    pathLength={NORMALIZED_PATH_LENGTH}
+                    style={{
+                      strokeDasharray: `${NORMALIZED_PATH_LENGTH}`,
+                      strokeDashoffset: `${(
+                        NORMALIZED_PATH_LENGTH * (1 - Math.max(0, Math.min(1, displayProgress / 100)))
+                      ).toFixed(2)}`,
+                    }}
+                  />
+                </svg>
+                <span className="loading-pin loading-pin-left" />
+                <span className="loading-pin loading-pin-right" />
+              </div>
+
+              <p className="loading-note-percent">{progress}%</p>
+            </article>
+          </section>
+        </main>
+      ) : null}
+    </div>
   );
 }
