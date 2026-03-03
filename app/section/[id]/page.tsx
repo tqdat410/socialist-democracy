@@ -2,6 +2,8 @@ import Section1Content from "./section-1-content";
 import Section2Content from "./section-2-content";
 import Section3Content from "./section-3-content";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return [{ id: "1" }, { id: "2" }, { id: "3" }];
 }

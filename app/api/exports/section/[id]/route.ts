@@ -4,6 +4,8 @@ import {
   SECTION_STATIC_EXPORT_ASSETS,
 } from "@/lib/section-static-export-assets";
 
+export const runtime = "edge";
+
 export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },
