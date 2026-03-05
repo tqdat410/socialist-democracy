@@ -190,7 +190,7 @@ export default function ResourceLoadingGate({
         >
           <section className="loading-note-stack" aria-live="polite">
             <article className="scrap paper-postit-yellow tape tape-red loading-note-card">
-              <h1 className="loading-note-title">Đang tải</h1>
+              <h1 className="loading-note-title">đang tải...</h1>
 
               <div className="loading-thread-wrap" aria-hidden>
                 <svg

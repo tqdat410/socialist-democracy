@@ -51,7 +51,7 @@ export default function HomePage() {
                 priority
               />
             </div>
-            <figcaption>mln131</figcaption>
+            <figcaption>MLN131</figcaption>
           </figure>
         </section>
 

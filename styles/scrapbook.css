@@ -597,10 +597,11 @@
 
 .loading-thread-base {
   fill: none;
-  stroke: #8b8681;
-  stroke-width: 2.6;
+  stroke: rgba(122, 118, 112, 0.46);
+  stroke-width: 2.35;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 4.6 6.2;
 }
 
 .loading-thread-progress {
